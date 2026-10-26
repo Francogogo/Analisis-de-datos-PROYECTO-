@@ -1,3 +1,5 @@
 /.venv/
 *:Zone.Identifier
 /data/raw/x*/*.csv
+/figures/
+/results/
