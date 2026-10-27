@@ -18,6 +18,5 @@ Hay que abrirlo desde la raíz del repo. El notebook lee directo del zip, no hac
 
 ## Archivos
 
-- `avance1.ipynb`: el Avance 1, con sus figuras y resultados.
+- `avance1.ipynb`: el Avance 1, con toda la carga, el procesamiento, las figuras y los resultados.
 - `detalles.md`: la pauta del proyecto.
-- `scripts/`: scripts de exploración.
