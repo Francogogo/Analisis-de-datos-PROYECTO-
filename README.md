@@ -11,12 +11,13 @@ Usamos los egresos hospitalarios abiertos del DEIS (`https://repositoriodeis.min
 ```bash
 python3 -m venv .venv
 .venv/bin/pip install -r requirements.txt jupyter
-.venv/bin/jupyter notebook avance1.ipynb
+.venv/bin/jupyter notebook avance1_v5.ipynb
 ```
 
 Hay que abrirlo desde la raíz del repo. El notebook lee directo del zip, no hace falta descomprimir.
 
 ## Archivos
 
-- `avance1.ipynb`: el Avance 1, con toda la carga, el procesamiento, las figuras y los resultados.
+- `avance1_v5.ipynb`: la versión actual del Avance 1, con toda la carga, el procesamiento, las figuras y los resultados.
+- `avance1.ipynb` y `avance1_v2.ipynb` a `avance1_v4.ipynb`: versiones anteriores.
 - `detalles.md`: la pauta del proyecto.
