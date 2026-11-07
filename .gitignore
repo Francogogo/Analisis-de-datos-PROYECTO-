@@ -3,4 +3,8 @@
 /data/raw/x*/*.csv
 /figures/
 /results/
-/avance1.ipynb/
+/.claude/
+/.material_curso/
+/.presentacion/
+bitacora_*.md
+/resumen_trabajo_y_pendientes.md
