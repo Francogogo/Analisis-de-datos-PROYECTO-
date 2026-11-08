@@ -2,10 +2,18 @@
 *:Zone.Identifier
 /data/raw/x*/*.csv
 /figures/
-/results/
+/results/*
+!/results/cifras_avance2_v7.json
 /.claude/
 /.material_curso/
 /.presentacion/
 bitacora_*.md
 /resumen_trabajo_y_pendientes.md
-/avance2_v5 copy.ipynb
+/versiones_anteriores/avance2_v5 copy.ipynb
+/paper/*.aux
+/paper/*.log
+/paper/*.out
+/paper/*.toc
+/paper/*.lof
+/paper/*.lot
+/paper/log.txt
