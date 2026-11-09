@@ -60,7 +60,6 @@
 \usepackage{array}
 \usepackage{tabularx}
 \usepackage{longtable}
-\usepackage{pdflscape}
 \usepackage{float}
 \usepackage{caption}
 \usepackage{tikz}
@@ -615,29 +614,27 @@ Los resultados permiten caracterizar qué grupos concentran las estadías largas
 
 % ---------------------------------------------------------------------
 \clearpage
-\begin{landscape}
 \section{Pruebas de a pares}\label{anx:pares}
 
-Las 20 pruebas del análisis de a pares, con $\alpha=0{,}05$. Shapiro--Wilk usa una muestra de 5.000 egresos y las demás pruebas usan los 968.098. En Mann--Whitney, $r$ es la correlación biserial de rangos, y su signo indica qué grupo tiende a más días (tabla~\ref{tab:resumen}). Todas las decisiones se mantienen con Bonferroni ($0{,}05/20=0{,}0025$). En la respuesta, «Prolongada» es la estadía de más de 15 días.
+Las 20 pruebas del análisis de a pares, con $\alpha=0{,}05$, agrupadas por tipo de prueba. Cada grupo parte con su hipótesis nula y su alternativa, que valen para todas las filas del grupo. Shapiro--Wilk usa una muestra de 5.000 egresos y las demás pruebas usan los 968.098. En Mann--Whitney, $r$ es la correlación biserial de rangos, y su signo indica qué grupo tiende a más días (tabla~\ref{tab:resumen}). Todas las decisiones se mantienen con Bonferroni ($0{,}05/20=0{,}0025$). En la respuesta, «Prolongada» es la estadía de más de 15 días.
 
-{\scriptsize\filas
-\setlength{\tabcolsep}{3.5pt}
-\begin{longtable}{>{\raggedleft\arraybackslash}p{0.45cm} >{\raggedright\arraybackslash}p{2.0cm} >{\raggedright\arraybackslash}p{1.6cm} >{\raggedright\arraybackslash}p{2.0cm} >{\raggedright\arraybackslash}p{3.35cm} >{\raggedright\arraybackslash}p{2.6cm} >{\raggedright\arraybackslash}p{3.3cm} >{\raggedright\arraybackslash}p{1.6cm} >{\raggedright\arraybackslash}p{1.25cm} >{\raggedright\arraybackslash}p{2.6cm}}
+{\footnotesize\filas
+\setlength{\tabcolsep}{3pt}
+\begin{longtable}{>{\raggedleft\arraybackslash}p{0.4cm} >{\raggedright\arraybackslash}p{2.4cm} >{\raggedright\arraybackslash}p{1.7cm} >{\raggedright\arraybackslash}p{3.0cm} >{\raggedright\arraybackslash}p{1.6cm} >{\raggedright\arraybackslash}p{1.7cm} >{\raggedright\arraybackslash}p{3.2cm}}
 \caption{Hipótesis, estadístico, valor-$p$, decisión y tamaño del efecto de las 20 pruebas de a pares.}\label{tab:anx-pares}\\
 \toprule
-N.º & Variable & Respuesta & Prueba & $H_0$ & $H_1$ & Estadístico & Valor-$p$ & Decisión & Efecto (Cohen) \\
+N.º & Variable & Respuesta & Estadístico & Valor-$p$ & Decisión & Efecto (Cohen) \\
 \midrule
 \endfirsthead
 \toprule
-N.º & Variable & Respuesta & Prueba & $H_0$ & $H_1$ & Estadístico & Valor-$p$ & Decisión & Efecto (Cohen) \\
+N.º & Variable & Respuesta & Estadístico & Valor-$p$ & Decisión & Efecto (Cohen) \\
 \midrule
 \endhead
 \bottomrule
 \endfoot
-\inputtab anexos/pares.tex 
+\inputtab anexos/pares_vertical.tex 
 \end{longtable}}
 \fuente
-\end{landscape}
 
 \clearpage
 La figura~\ref{fig:cramer} muestra la asociación entre las variables explicativas. La figura~\ref{fig:anx-normal} complementa las pruebas de normalidad: la edad se reparte casi pareja entre los tramos y los puntos de días y de $\ln$(días) se alejan de la recta en las colas. La figura~\ref{fig:anx-cajas} muestra $\ln$(días) en los factores que no aparecen en la figura~\ref{fig:biv}. Como la edad viene en tramos de 10 años, en lugar de un gráfico de dispersión para Spearman mostramos los días por tramo, donde se ve la subida con la edad y el alza en menores de un año. La tabla~\ref{tab:anx-cont} y la figura~\ref{fig:anx-prol} corresponden a las tablas de contingencia de los nueve chi-cuadrado.

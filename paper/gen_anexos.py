@@ -99,19 +99,15 @@ def cohen(medida, e):
     return "grande"
 
 
-filas = []
+pruebas = []                                   # una entrada por prueba: (tipo, variable, respuesta, estadístico, valor-p, efecto)
 nrm = d["normalidad"]
 for var, nom in (("dias_estada", "Días de estada"), ("edad", "Edad")):
     n = nrm[var]
-    filas.append(
-        f"{len(filas) + 1} & {nom} & Normalidad & Shapiro--Wilk, Lilliefors, Anderson--Darling & "
-        f"la variable es normal & no es normal & "
-        f"$W={num(n['Shapiro-Wilk W'], 3).strip('$')}$; $D={num(n['Lilliefors D'], 3).strip('$')}$; "
-        f"$A^2={num(n['Anderson-Darling A²'], 0).strip('$')}$ & "
-        f"SW y KS $<0{{,}}001$; AD $0{{,}}01$ & Se rechaza & --- \\\\"
-    )
+    pruebas.append(("Normalidad", nom, "---",
+                    f"$W={num(n['Shapiro-Wilk W'], 3).strip('$')}$; $D={num(n['Lilliefors D'], 3).strip('$')}$; "
+                    f"$A^2={num(n['Anderson-Darling A²'], 0).strip('$')}$",
+                    "SW y KS $<0{,}001$; AD $0{,}01$", "---"))
 for p in d["pares"]:
-    h0, h1 = H[p["prueba"]]
     est = p["estadístico"]
     if p["prueba"] == "Spearman":
         e_txt = f"$\\rho_s={num(est, 3).strip('$')}$"
@@ -123,14 +119,34 @@ for p in d["pares"]:
     else:
         e_txt = f"$\\chi^2={num(est, 1).strip('$')}$ ({int(p['gl'])} gl)"
     m = p["medida"]
-    efecto = f"${MEDIDA[m]}={num(p['efecto'], 3).strip('$')}$, {cohen(m, p['efecto'])}"
-    filas.append(
-        f"{len(filas) + 1} & {NOMBRE[p['variable']]} & "
-        f"{'Días' if p['respuesta'] == 'días' else 'Prolongada'} & {p['prueba'].replace('-', '--')} & "
-        f"{h0} & {h1} & {e_txt} & {pval(p['valor-p'])} & Se rechaza & {efecto} \\\\"
-    )
-assert len(filas) == d["n_pruebas_pares"] == 20
+    pruebas.append((p["prueba"], NOMBRE[p["variable"]], "Días" if p["respuesta"] == "días" else "Prolongada", e_txt,
+                    pval(p["valor-p"]), f"${MEDIDA[m]}={num(p['efecto'], 3).strip('$')}$, {cohen(m, p['efecto'])}"))
+assert len(pruebas) == d["n_pruebas_pares"] == 20
+
+# informe.tex (página horizontal): una fila por prueba con sus hipótesis
+H["Normalidad"] = ("la variable es normal", "no es normal")
+PRUEBA = {"Normalidad": "Shapiro--Wilk, Lilliefors, Anderson--Darling"}
+filas = []
+for k, (tipo, var, resp, e_txt, pv, ef) in enumerate(pruebas, 1):
+    h0, h1 = H[tipo]
+    resp = "Normalidad" if tipo == "Normalidad" else resp
+    filas.append(f"{k} & {var} & {resp} & {PRUEBA.get(tipo, tipo.replace('-', '--'))} & {h0} & {h1} & {e_txt} & {pv} & "
+                 f"Se rechaza & {ef} \\\\")
 (SALIDA / "pares.tex").write_text("\n".join(filas) + "\n")
+
+# informe_v2.tex (página vertical): las hipótesis van una vez, en la fila de título de cada tipo de prueba
+filas, actual = [], None
+for k, (tipo, var, resp, e_txt, pv, ef) in enumerate(pruebas, 1):
+    if tipo != actual:
+        actual = tipo
+        h0, h1 = H[tipo]
+        nombre = PRUEBA.get(tipo, tipo.replace("-", "--"))
+        filas.append(f"\\multicolumn{{7}}{{>{{\\raggedright\\arraybackslash}}p{{\\dimexpr\\linewidth-2\\tabcolsep}}}}"
+                     f"{{\\cellcolor{{white}}\\textbf{{{nombre}.}} $H_0$: {h0}. $H_1$: {h1}.}} \\\\")
+    filas.append(f"{k} & {var} & {resp} & {e_txt.replace(' gl)', '~gl)')} & {pv} & Se rechaza & {ef} \\\\")
+(SALIDA / "pares_vertical.tex").write_text("\n".join(filas) + "\n")
+# informe_v3.tex: igual que la vertical, pero Anderson-Darling se informa como p <= 0,01 (scipy no da valores menores)
+(SALIDA / "pares_v3.tex").write_text("\n".join(filas).replace("AD $0{,}01$", "AD $\\le0{,}01$") + "\n")
 
 # ---------- Anexo B: coeficientes completos de M3
 filas = []
