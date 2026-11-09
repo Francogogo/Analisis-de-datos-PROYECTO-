@@ -17,3 +17,4 @@ bitacora_*.md
 /paper/*.lof
 /paper/*.lot
 /paper/log.txt
+__pycache__/
