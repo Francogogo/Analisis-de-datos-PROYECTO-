@@ -1,0 +1,2116 @@
+{
+  "enfoque": "analítico, observacional, base completa, sin particiones",
+  "n": 968098,
+  "n_columnas_base": 18,
+  "n_comunas": 344,
+  "excluidos_mas_365": 397,
+  "pct_excluidos": 0.0409914351648692,
+  "percentil_90_dias": 15.0,
+  "ln_n": 13.783088600803746,
+  "interv_q": {
+    "Cesárea (O82)": {
+      "egresos": 48185,
+      "% INTERV_Q = 1": 97.23,
+      "% PROCED = 1": 3.46
+    },
+    "Apendicitis (K35)": {
+      "egresos": 23298,
+      "% INTERV_Q = 1": 91.19,
+      "% PROCED = 1": 3.61
+    },
+    "Colelitiasis (K80)": {
+      "egresos": 32118,
+      "% INTERV_Q = 1": 76.04,
+      "% PROCED = 1": 10.91
+    },
+    "Parto normal (O80)": {
+      "egresos": 48208,
+      "% INTERV_Q = 1": 3.19,
+      "% PROCED = 1": 41.22
+    }
+  },
+  "base_analitica": {
+    "base completa": {
+      "egresos": 968098,
+      "media de días": 6.699649209067677,
+      "mediana de días": 3.0,
+      "% prolongadas": 9.390474931256959,
+      "% SNSS": 81.84553629901104,
+      "% fallecidos": 3.8567376443293964,
+      "edad media": 45.01086615198048
+    }
+  },
+  "descriptivos": {
+    "dias_estada": {
+      "count": 968098.0,
+      "mean": 6.6996,
+      "median": 3.0,
+      "Q1": 2.0,
+      "Q3": 7.0,
+      "RIC": 5.0,
+      "s": 12.7862,
+      "CV": 1.9085,
+      "asimetría": 9.0389
+    },
+    "log_dias": {
+      "count": 968098.0,
+      "mean": 1.2505,
+      "median": 1.0986,
+      "Q1": 0.6931,
+      "Q3": 1.9459,
+      "RIC": 1.2528,
+      "s": 1.0351,
+      "CV": 0.8278,
+      "asimetría": 0.6823
+    },
+    "edad": {
+      "count": 968098.0,
+      "mean": 45.0109,
+      "median": 44.5,
+      "Q1": 24.5,
+      "Q3": 64.5,
+      "RIC": 40.0,
+      "s": 24.2948,
+      "CV": 0.5398,
+      "asimetría": 0.0066
+    }
+  },
+  "pct_prolongadas": 9.390474931256959,
+  "pct_dias_cama": 47.069982548342814,
+  "atipicos": {
+    "días": {
+      "Li": -5.5,
+      "Ls": 14.5,
+      "n > Ls": 99978,
+      "% > Ls": 10.3273,
+      "n < Li": 0,
+      "n |z| > 3": 14614,
+      "% |z| > 3": 1.5096
+    },
+    "ln(días)": {
+      "Li": -1.186,
+      "Ls": 3.8251,
+      "n > Ls": 14614,
+      "% > Ls": 1.5096,
+      "n < Li": 0,
+      "n |z| > 3": 4745,
+      "% |z| > 3": 0.4901
+    }
+  },
+  "comparacion_robustez": {
+    "días con > 365 incluidos": {
+      "n": 968495,
+      "media": 7.2851,
+      "s": 59.7397,
+      "mediana": 3.0,
+      "MAD": 2.0
+    },
+    "días (base final)": {
+      "n": 968098,
+      "media": 6.6996,
+      "s": 12.7862,
+      "mediana": 3.0,
+      "MAD": 2.0
+    },
+    "ln(días)": {
+      "n": 968098,
+      "media": 1.2505,
+      "s": 1.0351,
+      "mediana": 1.0986,
+      "MAD": 0.6931
+    }
+  },
+  "pct_diag2_nulo": 90.1585376687071,
+  "cramer_variables": {
+    "capitulo | cirugia": 0.4287,
+    "capitulo | sexo": 0.4284,
+    "cirugia | establecimiento": 0.2832,
+    "capitulo | fallecido": 0.2611,
+    "capitulo | establecimiento": 0.1901,
+    "establecimiento | region": 0.1494,
+    "cirugia | fallecido": 0.1085,
+    "cirugia | region": 0.0651,
+    "fallecido | sexo": 0.0646,
+    "establecimiento | fallecido": 0.0513,
+    "cirugia | sexo": 0.0449,
+    "capitulo | region": 0.0406,
+    "establecimiento | sexo": 0.0399,
+    "fallecido | region": 0.0377,
+    "region | sexo": 0.0238
+  },
+  "normalidad": {
+    "dias_estada": {
+      "Shapiro-Wilk W": 0.441573,
+      "p SW": 0.0,
+      "Lilliefors D": 0.327884,
+      "p KS": 0.0,
+      "Anderson-Darling A²": 150920.966706,
+      "p AD": 0.01
+    },
+    "edad": {
+      "Shapiro-Wilk W": 0.956846,
+      "p SW": 0.0,
+      "Lilliefors D": 0.128653,
+      "p KS": 0.0,
+      "Anderson-Darling A²": 13546.111039,
+      "p AD": 0.01
+    }
+  },
+  "pares": [
+    {
+      "variable": "edad",
+      "respuesta": "días",
+      "prueba": "Spearman",
+      "estadístico": 0.249696,
+      "valor-p": 0.0,
+      "medida": "ρ",
+      "efecto": 0.249696,
+      "detalle": "",
+      "gl": NaN,
+      "esperada mínima": NaN
+    },
+    {
+      "variable": "sexo",
+      "respuesta": "días",
+      "prueba": "Mann-Whitney U",
+      "estadístico": 128229165044.0,
+      "valor-p": 0.0,
+      "medida": "r",
+      "efecto": 0.140037,
+      "detalle": "HOMBRE / MUJER: medianas 4 / 3",
+      "gl": NaN,
+      "esperada mínima": NaN
+    },
+    {
+      "variable": "nacionalidad",
+      "respuesta": "días",
+      "prueba": "Mann-Whitney U",
+      "estadístico": 18931464786.5,
+      "valor-p": 0.0,
+      "medida": "r",
+      "efecto": 0.062405,
+      "detalle": "Chileno / extranjero: medianas 3 / 3",
+      "gl": NaN,
+      "esperada mínima": NaN
+    },
+    {
+      "variable": "etnia",
+      "respuesta": "días",
+      "prueba": "Mann-Whitney U",
+      "estadístico": 9770718101.0,
+      "valor-p": 0.0,
+      "medida": "r",
+      "efecto": -0.024698,
+      "detalle": "No / Sí: medianas 3 / 3",
+      "gl": NaN,
+      "esperada mínima": NaN
+    },
+    {
+      "variable": "cirugia",
+      "respuesta": "días",
+      "prueba": "Mann-Whitney U",
+      "estadístico": 134328097919.0,
+      "valor-p": 0.0,
+      "medida": "r",
+      "efecto": 0.224261,
+      "detalle": "No / Sí: medianas 4 / 2",
+      "gl": NaN,
+      "esperada mínima": NaN
+    },
+    {
+      "variable": "fallecido",
+      "respuesta": "días",
+      "prueba": "Mann-Whitney U",
+      "estadístico": 12299582842.0,
+      "valor-p": 0.0,
+      "medida": "r",
+      "efecto": -0.292147,
+      "detalle": "No / Sí: medianas 3 / 7",
+      "gl": NaN,
+      "esperada mínima": NaN
+    },
+    {
+      "variable": "establecimiento",
+      "respuesta": "días",
+      "prueba": "Mann-Whitney U",
+      "estadístico": 43570528856.5,
+      "valor-p": 0.0,
+      "medida": "r",
+      "efecto": -0.374243,
+      "detalle": "No SNSS / SNSS: medianas 2 / 3",
+      "gl": NaN,
+      "esperada mínima": NaN
+    },
+    {
+      "variable": "capitulo",
+      "respuesta": "días",
+      "prueba": "Kruskal-Wallis",
+      "estadístico": 116410.554726,
+      "valor-p": 0.0,
+      "medida": "ε²",
+      "efecto": 0.120247,
+      "detalle": "medianas de 1 (H00-H59) a 9 (F00-F99) días",
+      "gl": NaN,
+      "esperada mínima": NaN
+    },
+    {
+      "variable": "region",
+      "respuesta": "días",
+      "prueba": "Kruskal-Wallis",
+      "estadístico": 2259.708587,
+      "valor-p": 0.0,
+      "medida": "ε²",
+      "efecto": 0.002334,
+      "detalle": "medianas de 2 (De Aisén del Gral. C. Ibáñez del Campo) a 4 (De Magallanes y de La Antártica Chilena) días",
+      "gl": NaN,
+      "esperada mínima": NaN
+    },
+    {
+      "variable": "tramo_edad",
+      "respuesta": "prolongada",
+      "prueba": "Chi-cuadrado",
+      "estadístico": 26265.083414,
+      "valor-p": 0.0,
+      "medida": "V",
+      "efecto": 0.164714,
+      "detalle": "% prolongadas de 3.5 (20 a 29) a 15.4 (menor de un año)",
+      "gl": 10.0,
+      "esperada mínima": 1408.38343
+    },
+    {
+      "variable": "sexo",
+      "respuesta": "prolongada",
+      "prueba": "Chi-cuadrado",
+      "estadístico": 10332.248655,
+      "valor-p": 0.0,
+      "medida": "V",
+      "efecto": 0.103309,
+      "detalle": "% prolongadas de 6.9 (MUJER) a 13.1 (HOMBRE)",
+      "gl": 1.0,
+      "esperada mínima": 36375.694932
+    },
+    {
+      "variable": "nacionalidad",
+      "respuesta": "prolongada",
+      "prueba": "Chi-cuadrado",
+      "estadístico": 641.894121,
+      "valor-p": 0.0,
+      "medida": "V",
+      "efecto": 0.02575,
+      "detalle": "% prolongadas de 5.7 (extranjero) a 9.5 (Chileno)",
+      "gl": 1.0,
+      "esperada mínima": 3599.462946
+    },
+    {
+      "variable": "etnia",
+      "respuesta": "prolongada",
+      "prueba": "Chi-cuadrado",
+      "estadístico": 13.895819,
+      "valor-p": 0.000193,
+      "medida": "V",
+      "efecto": 0.003789,
+      "detalle": "% prolongadas de 8.6 (Sí) a 9.4 (No)",
+      "gl": 1.0,
+      "esperada mínima": 1986.930591
+    },
+    {
+      "variable": "capitulo",
+      "respuesta": "prolongada",
+      "prueba": "Chi-cuadrado",
+      "estadístico": 60840.389279,
+      "valor-p": 0.0,
+      "medida": "V",
+      "efecto": 0.25069,
+      "detalle": "% prolongadas de 0.9 (O00-O99) a 35.6 (F00-F99)",
+      "gl": 20.0,
+      "esperada mínima": 174.756738
+    },
+    {
+      "variable": "cirugia",
+      "respuesta": "prolongada",
+      "prueba": "Chi-cuadrado",
+      "estadístico": 2749.327637,
+      "valor-p": 0.0,
+      "medida": "V",
+      "efecto": 0.053291,
+      "detalle": "% prolongadas de 7.4 (Sí) a 10.6 (No)",
+      "gl": 1.0,
+      "esperada mínima": 34007.417154
+    },
+    {
+      "variable": "fallecido",
+      "respuesta": "prolongada",
+      "prueba": "Chi-cuadrado",
+      "estadístico": 11514.500974,
+      "valor-p": 0.0,
+      "medida": "V",
+      "efecto": 0.109059,
+      "detalle": "% prolongadas de 8.8 (No) a 25.3 (Sí)",
+      "gl": 1.0,
+      "esperada mínima": 3506.121625
+    },
+    {
+      "variable": "establecimiento",
+      "respuesta": "prolongada",
+      "prueba": "Chi-cuadrado",
+      "estadístico": 6896.670246,
+      "valor-p": 0.0,
+      "medida": "V",
+      "efecto": 0.084403,
+      "detalle": "% prolongadas de 4.2 (No SNSS) a 10.6 (SNSS)",
+      "gl": 1.0,
+      "esperada mínima": 16504.041406
+    },
+    {
+      "variable": "region",
+      "respuesta": "prolongada",
+      "prueba": "Chi-cuadrado",
+      "estadístico": 2343.467909,
+      "valor-p": 0.0,
+      "medida": "V",
+      "efecto": 0.049201,
+      "detalle": "% prolongadas de 6.6 (De Aisén del Gral. C. Ibáñez del Campo) a 10.9 (Metropolitana de Santiago)",
+      "gl": 15.0,
+      "esperada mínima": 673.954386
+    }
+  ],
+  "pares_resumen": [
+    {
+      "variable 1": "días y edad",
+      "variable 2": "normalidad",
+      "prueba": "Shapiro-Wilk, Lilliefors, Anderson-Darling",
+      "efecto": "",
+      "magnitud": "",
+      "valor-p": "SW y KS < 0,001; AD = 0,01"
+    },
+    {
+      "variable 1": "edad",
+      "variable 2": "días",
+      "prueba": "Spearman",
+      "efecto": "ρ = 0,25",
+      "magnitud": "pequeño",
+      "valor-p": "< 0,001"
+    },
+    {
+      "variable 1": "sexo",
+      "variable 2": "días",
+      "prueba": "Mann-Whitney U",
+      "efecto": "r = 0,14",
+      "magnitud": "pequeño",
+      "valor-p": "< 0,001"
+    },
+    {
+      "variable 1": "nacionalidad",
+      "variable 2": "días",
+      "prueba": "Mann-Whitney U",
+      "efecto": "r = 0,06",
+      "magnitud": "despreciable",
+      "valor-p": "< 0,001"
+    },
+    {
+      "variable 1": "etnia",
+      "variable 2": "días",
+      "prueba": "Mann-Whitney U",
+      "efecto": "r = −0,02",
+      "magnitud": "despreciable",
+      "valor-p": "< 0,001"
+    },
+    {
+      "variable 1": "cirugia",
+      "variable 2": "días",
+      "prueba": "Mann-Whitney U",
+      "efecto": "r = 0,22",
+      "magnitud": "pequeño",
+      "valor-p": "< 0,001"
+    },
+    {
+      "variable 1": "fallecido",
+      "variable 2": "días",
+      "prueba": "Mann-Whitney U",
+      "efecto": "r = −0,29",
+      "magnitud": "pequeño",
+      "valor-p": "< 0,001"
+    },
+    {
+      "variable 1": "establecimiento",
+      "variable 2": "días",
+      "prueba": "Mann-Whitney U",
+      "efecto": "r = −0,37",
+      "magnitud": "mediano",
+      "valor-p": "< 0,001"
+    },
+    {
+      "variable 1": "capitulo",
+      "variable 2": "días",
+      "prueba": "Kruskal-Wallis",
+      "efecto": "ε² = 0,12",
+      "magnitud": "mediano",
+      "valor-p": "< 0,001"
+    },
+    {
+      "variable 1": "region",
+      "variable 2": "días",
+      "prueba": "Kruskal-Wallis",
+      "efecto": "ε² = 0,002",
+      "magnitud": "despreciable",
+      "valor-p": "< 0,001"
+    },
+    {
+      "variable 1": "tramo_edad",
+      "variable 2": "prolongada",
+      "prueba": "Chi-cuadrado",
+      "efecto": "V = 0,16",
+      "magnitud": "pequeño",
+      "valor-p": "< 0,001"
+    },
+    {
+      "variable 1": "sexo",
+      "variable 2": "prolongada",
+      "prueba": "Chi-cuadrado",
+      "efecto": "V = 0,10",
+      "magnitud": "pequeño",
+      "valor-p": "< 0,001"
+    },
+    {
+      "variable 1": "nacionalidad",
+      "variable 2": "prolongada",
+      "prueba": "Chi-cuadrado",
+      "efecto": "V = 0,03",
+      "magnitud": "despreciable",
+      "valor-p": "< 0,001"
+    },
+    {
+      "variable 1": "etnia",
+      "variable 2": "prolongada",
+      "prueba": "Chi-cuadrado",
+      "efecto": "V = 0,004",
+      "magnitud": "despreciable",
+      "valor-p": "< 0,001"
+    },
+    {
+      "variable 1": "capitulo",
+      "variable 2": "prolongada",
+      "prueba": "Chi-cuadrado",
+      "efecto": "V = 0,25",
+      "magnitud": "pequeño",
+      "valor-p": "< 0,001"
+    },
+    {
+      "variable 1": "cirugia",
+      "variable 2": "prolongada",
+      "prueba": "Chi-cuadrado",
+      "efecto": "V = 0,05",
+      "magnitud": "despreciable",
+      "valor-p": "< 0,001"
+    },
+    {
+      "variable 1": "fallecido",
+      "variable 2": "prolongada",
+      "prueba": "Chi-cuadrado",
+      "efecto": "V = 0,11",
+      "magnitud": "pequeño",
+      "valor-p": "< 0,001"
+    },
+    {
+      "variable 1": "establecimiento",
+      "variable 2": "prolongada",
+      "prueba": "Chi-cuadrado",
+      "efecto": "V = 0,08",
+      "magnitud": "despreciable",
+      "valor-p": "< 0,001"
+    },
+    {
+      "variable 1": "region",
+      "variable 2": "prolongada",
+      "prueba": "Chi-cuadrado",
+      "efecto": "V = 0,05",
+      "magnitud": "despreciable",
+      "valor-p": "< 0,001"
+    }
+  ],
+  "n_pruebas_pares": 20,
+  "posthoc_holm": {
+    "capitulo": {
+      "pares": 210,
+      "distintos": 202
+    },
+    "region": {
+      "pares": 120,
+      "distintos": 104
+    }
+  },
+  "pct_prolongadas_por_grupo": {
+    "tramo_edad": {
+      "1 a 9": 4.28,
+      "10 a 19": 6.71,
+      "20 a 29": 3.52,
+      "30 a 39": 4.17,
+      "40 a 49": 8.23,
+      "50 a 59": 12.08,
+      "60 a 69": 14.38,
+      "70 a 79": 15.36,
+      "80 a 89": 14.66,
+      "90 y más": 11.7,
+      "menor de un año": 15.4
+    },
+    "sexo": {
+      "HOMBRE": 13.08,
+      "MUJER": 6.93
+    },
+    "nacionalidad": {
+      "Chileno": 9.54,
+      "extranjero": 5.69
+    },
+    "etnia": {
+      "No": 9.41,
+      "Sí": 8.65
+    },
+    "capitulo": {
+      "A00-B99": 19.12,
+      "C00-D48": 11.06,
+      "D50-D89": 10.03,
+      "E00-E90": 12.95,
+      "F00-F99": 35.6,
+      "G00-G99": 11.35,
+      "H00-H59": 2.24,
+      "H60-H95": 1.61,
+      "I00-I99": 13.9,
+      "J00-J99": 13.63,
+      "K00-K93": 5.66,
+      "L00-L99": 12.79,
+      "M00-M99": 6.55,
+      "N00-N99": 6.13,
+      "O00-O99": 0.91,
+      "P00-P96": 17.23,
+      "Q00-Q99": 13.19,
+      "R00-R99": 2.41,
+      "S00-T98": 11.32,
+      "U00-U99": 26.16,
+      "Z00-Z99": 2.94
+    },
+    "cirugia": {
+      "No": 10.59,
+      "Sí": 7.38
+    },
+    "fallecido": {
+      "No": 8.75,
+      "Sí": 25.28
+    },
+    "establecimiento": {
+      "No SNSS": 4.16,
+      "SNSS": 10.55
+    },
+    "region": {
+      "De Aisén del Gral. C. Ibáñez del Campo": 6.56,
+      "De Antofagasta": 10.15,
+      "De Arica y Parinacota": 9.01,
+      "De Atacama": 8.82,
+      "De Coquimbo": 9.12,
+      "De La Araucanía": 9.06,
+      "De Los Lagos": 7.9,
+      "De Los Ríos": 7.73,
+      "De Magallanes y de La Antártica Chilena": 10.6,
+      "De Tarapacá": 7.04,
+      "De Valparaíso": 10.48,
+      "De Ñuble": 8.18,
+      "Del Bíobío": 7.87,
+      "Del Libertador B. O'Higgins": 7.16,
+      "Del Maule": 7.8,
+      "Metropolitana de Santiago": 10.88
+    }
+  },
+  "contingencia": {
+    "tramo_edad": {
+      "1 a 9": {
+        "No": 43253,
+        "Sí": 1932
+      },
+      "10 a 19": {
+        "No": 52316,
+        "Sí": 3765
+      },
+      "20 a 29": {
+        "No": 149818,
+        "Sí": 5460
+      },
+      "30 a 39": {
+        "No": 145472,
+        "Sí": 6323
+      },
+      "40 a 49": {
+        "No": 85324,
+        "Sí": 7648
+      },
+      "50 a 59": {
+        "No": 99039,
+        "Sí": 13606
+      },
+      "60 a 69": {
+        "No": 107629,
+        "Sí": 18076
+      },
+      "70 a 79": {
+        "No": 93167,
+        "Sí": 16912
+      },
+      "80 a 89": {
+        "No": 55579,
+        "Sí": 9544
+      },
+      "90 y más": {
+        "No": 13243,
+        "Sí": 1755
+      },
+      "menor de un año": {
+        "No": 32349,
+        "Sí": 5888
+      }
+    },
+    "sexo": {
+      "HOMBRE": {
+        "No": 336699,
+        "Sí": 50669
+      },
+      "MUJER": {
+        "No": 540490,
+        "Sí": 40240
+      }
+    },
+    "nacionalidad": {
+      "Chileno": {
+        "No": 841039,
+        "Sí": 88728
+      },
+      "extranjero": {
+        "No": 36150,
+        "Sí": 2181
+      }
+    },
+    "etnia": {
+      "No": {
+        "No": 857860,
+        "Sí": 89079
+      },
+      "Sí": {
+        "No": 19329,
+        "Sí": 1830
+      }
+    },
+    "capitulo": {
+      "A00-B99": {
+        "No": 14942,
+        "Sí": 3532
+      },
+      "C00-D48": {
+        "No": 63931,
+        "Sí": 7949
+      },
+      "D50-D89": {
+        "No": 6733,
+        "Sí": 751
+      },
+      "E00-E90": {
+        "No": 22048,
+        "Sí": 3281
+      },
+      "F00-F99": {
+        "No": 12757,
+        "Sí": 7051
+      },
+      "G00-G99": {
+        "No": 15212,
+        "Sí": 1947
+      },
+      "H00-H59": {
+        "No": 4635,
+        "Sí": 106
+      },
+      "H60-H95": {
+        "No": 1831,
+        "Sí": 30
+      },
+      "I00-I99": {
+        "No": 77395,
+        "Sí": 12491
+      },
+      "J00-J99": {
+        "No": 51037,
+        "Sí": 8056
+      },
+      "K00-K93": {
+        "No": 126447,
+        "Sí": 7581
+      },
+      "L00-L99": {
+        "No": 11292,
+        "Sí": 1656
+      },
+      "M00-M99": {
+        "No": 29098,
+        "Sí": 2039
+      },
+      "N00-N99": {
+        "No": 69110,
+        "Sí": 4514
+      },
+      "O00-O99": {
+        "No": 195227,
+        "Sí": 1793
+      },
+      "P00-P96": {
+        "No": 20265,
+        "Sí": 4218
+      },
+      "Q00-Q99": {
+        "No": 7690,
+        "Sí": 1168
+      },
+      "R00-R99": {
+        "No": 13662,
+        "Sí": 337
+      },
+      "S00-T98": {
+        "No": 84424,
+        "Sí": 10777
+      },
+      "U00-U99": {
+        "No": 31283,
+        "Sí": 11082
+      },
+      "Z00-Z99": {
+        "No": 18170,
+        "Sí": 550
+      }
+    },
+    "cirugia": {
+      "No": {
+        "No": 541766,
+        "Sí": 64184
+      },
+      "Sí": {
+        "No": 335423,
+        "Sí": 26725
+      }
+    },
+    "fallecido": {
+      "No": {
+        "No": 849289,
+        "Sí": 81472
+      },
+      "Sí": {
+        "No": 27900,
+        "Sí": 9437
+      }
+    },
+    "establecimiento": {
+      "No SNSS": {
+        "No": 168437,
+        "Sí": 7316
+      },
+      "SNSS": {
+        "No": 708752,
+        "Sí": 83593
+      }
+    },
+    "region": {
+      "De Aisén del Gral. C. Ibáñez del Campo": {
+        "No": 7818,
+        "Sí": 549
+      },
+      "De Antofagasta": {
+        "No": 29904,
+        "Sí": 3377
+      },
+      "De Arica y Parinacota": {
+        "No": 6530,
+        "Sí": 647
+      },
+      "De Atacama": {
+        "No": 15280,
+        "Sí": 1478
+      },
+      "De Coquimbo": {
+        "No": 34522,
+        "Sí": 3464
+      },
+      "De La Araucanía": {
+        "No": 56970,
+        "Sí": 5674
+      },
+      "De Los Lagos": {
+        "No": 52870,
+        "Sí": 4537
+      },
+      "De Los Ríos": {
+        "No": 26497,
+        "Sí": 2220
+      },
+      "De Magallanes y de La Antártica Chilena": {
+        "No": 8036,
+        "Sí": 953
+      },
+      "De Tarapacá": {
+        "No": 15897,
+        "Sí": 1204
+      },
+      "De Valparaíso": {
+        "No": 86274,
+        "Sí": 10104
+      },
+      "De Ñuble": {
+        "No": 28651,
+        "Sí": 2551
+      },
+      "Del Bíobío": {
+        "No": 97727,
+        "Sí": 8344
+      },
+      "Del Libertador B. O'Higgins": {
+        "No": 46567,
+        "Sí": 3594
+      },
+      "Del Maule": {
+        "No": 58383,
+        "Sí": 4939
+      },
+      "Metropolitana de Santiago": {
+        "No": 305263,
+        "Sí": 37274
+      }
+    }
+  },
+  "mediana_dias_por_tramo": {
+    "1 a 9": 2.0,
+    "10 a 19": 2.0,
+    "20 a 29": 2.0,
+    "30 a 39": 2.0,
+    "40 a 49": 3.0,
+    "50 a 59": 4.0,
+    "60 a 69": 5.0,
+    "70 a 79": 5.0,
+    "80 a 89": 6.0,
+    "90 y más": 6.0,
+    "menor de un año": 4.0
+  },
+  "modelos": {
+    "M0": {
+      "k": 1,
+      "R²": 0.0,
+      "R² aj.": 0.0,
+      "BIC": 2814166.0,
+      "η² parcial": NaN,
+      "Δ BIC": NaN,
+      "F parcial": NaN,
+      "gl": NaN,
+      "valor-p": NaN
+    },
+    "M1": {
+      "k": 23,
+      "R²": 0.13244,
+      "R² aj.": 0.13242,
+      "BIC": 2676930.0,
+      "η² parcial": 0.13244,
+      "Δ BIC": -137235.0,
+      "F parcial": 6717.480558,
+      "gl": 22.0,
+      "valor-p": 0.0
+    },
+    "M2": {
+      "k": 26,
+      "R²": 0.161781,
+      "R² aj.": 0.161759,
+      "BIC": 2643664.0,
+      "η² parcial": 0.03382,
+      "Δ BIC": -33266.0,
+      "F parcial": 11295.457976,
+      "gl": 3.0,
+      "valor-p": 0.0
+    },
+    "M3": {
+      "k": 42,
+      "R²": 0.19802,
+      "R² aj.": 0.197986,
+      "BIC": 2601099.0,
+      "η² parcial": 0.043233,
+      "Δ BIC": -42565.0,
+      "F parcial": 2733.936554,
+      "gl": 16.0,
+      "valor-p": 0.0
+    }
+  },
+  "anova": {
+    "Regresión": {
+      "Suma de cuadrados (SS)": 205399.101451,
+      "Grados de libertad (gl)": 41.0,
+      "Cuadrado medio (MS)": 5009.734182,
+      "F": 5829.904087,
+      "valor-p": 0.0
+    },
+    "Residual": {
+      "Suma de cuadrados (SS)": 831866.727204,
+      "Grados de libertad (gl)": 968056.0,
+      "Cuadrado medio (MS)": 0.859317,
+      "F": NaN,
+      "valor-p": NaN
+    },
+    "Total": {
+      "Suma de cuadrados (SS)": 1037265.828655,
+      "Grados de libertad (gl)": 968097.0,
+      "Cuadrado medio (MS)": NaN,
+      "F": NaN,
+      "valor-p": NaN
+    }
+  },
+  "eta2_bloques": {
+    "M1 frente a M0 (clínico)": {
+      "η²": 0.13244,
+      "efecto (Cohen)": "mediano"
+    },
+    "M2 frente a M1 (edad y sexo)": {
+      "η²": 0.03382,
+      "efecto (Cohen)": "pequeño"
+    },
+    "M3 frente a M2 (establecimiento y región)": {
+      "η²": 0.043233,
+      "efecto (Cohen)": "pequeño"
+    },
+    "M3 frente a M0 (modelo completo)": {
+      "η²": 0.19802,
+      "efecto (Cohen)": "grande"
+    }
+  },
+  "eta2_parciales": {
+    "capítulo": {
+      "R² sin el factor": 0.133945,
+      "η² parcial": 0.073985,
+      "efecto (Cohen)": "mediano"
+    },
+    "cirugía": {
+      "R² sin el factor": 0.19789,
+      "η² parcial": 0.000162,
+      "efecto (Cohen)": "menor que pequeño"
+    },
+    "fallecido": {
+      "R² sin el factor": 0.197905,
+      "η² parcial": 0.000143,
+      "efecto (Cohen)": "menor que pequeño"
+    },
+    "edad (edad y edad²)": {
+      "R² sin el factor": 0.169198,
+      "η² parcial": 0.034691,
+      "efecto (Cohen)": "pequeño"
+    },
+    "sexo": {
+      "R² sin el factor": 0.195921,
+      "η² parcial": 0.00261,
+      "efecto (Cohen)": "menor que pequeño"
+    },
+    "establecimiento": {
+      "R² sin el factor": 0.163816,
+      "η² parcial": 0.040905,
+      "efecto (Cohen)": "pequeño"
+    },
+    "región": {
+      "R² sin el factor": 0.194166,
+      "η² parcial": 0.004782,
+      "efecto (Cohen)": "menor que pequeño"
+    }
+  },
+  "coef": {
+    "Intercept": {
+      "β": 0.600076,
+      "EE": 0.00411,
+      "EE HC3": 0.004066,
+      "t": 145.998216,
+      "valor-p": 0.0,
+      "valor-p HC3": 0.0,
+      "IC inf": 0.59202,
+      "IC sup": 0.608131,
+      "IC HC3 inf": 0.592106,
+      "IC HC3 sup": 0.608045,
+      "EE HC3 / EE": 0.989279,
+      "%Δ": 82.225669,
+      "%Δ inf": 80.763598,
+      "%Δ sup": 83.699566,
+      "%Δ HC3 inf": 80.779186,
+      "%Δ HC3 sup": 83.683726
+    },
+    "capitulo: A00-B99": {
+      "β": 0.643194,
+      "EE": 0.007415,
+      "EE HC3": 0.008651,
+      "t": 86.745935,
+      "valor-p": 0.0,
+      "valor-p HC3": 0.0,
+      "IC inf": 0.628661,
+      "IC sup": 0.657726,
+      "IC HC3 inf": 0.626238,
+      "IC HC3 sup": 0.66015,
+      "EE HC3 / EE": 1.166732,
+      "%Δ": 90.254735,
+      "%Δ inf": 87.509846,
+      "%Δ sup": 93.039806,
+      "%Δ HC3 inf": 87.055997,
+      "%Δ HC3 sup": 93.508173
+    },
+    "capitulo: C00-D48": {
+      "β": 0.230939,
+      "EE": 0.004311,
+      "EE HC3": 0.004533,
+      "t": 53.575506,
+      "valor-p": 0.0,
+      "valor-p HC3": 0.0,
+      "IC inf": 0.22249,
+      "IC sup": 0.239387,
+      "IC HC3 inf": 0.222054,
+      "IC HC3 sup": 0.239824,
+      "EE HC3 / EE": 1.051596,
+      "%Δ": 25.978237,
+      "%Δ inf": 24.918393,
+      "%Δ sup": 27.047073,
+      "%Δ HC3 inf": 24.863933,
+      "%Δ HC3 sup": 27.102485
+    },
+    "capitulo: D50-D89": {
+      "β": 0.254373,
+      "EE": 0.01109,
+      "EE HC3": 0.012548,
+      "t": 22.937316,
+      "valor-p": 0.0,
+      "valor-p HC3": 0.0,
+      "IC inf": 0.232637,
+      "IC sup": 0.276109,
+      "IC HC3 inf": 0.229779,
+      "IC HC3 sup": 0.278967,
+      "EE HC3 / EE": 1.131478,
+      "%Δ": 28.965313,
+      "%Δ inf": 26.192381,
+      "%Δ sup": 31.799176,
+      "%Δ HC3 inf": 25.832213,
+      "%Δ HC3 sup": 32.176424
+    },
+    "capitulo: E00-E90": {
+      "β": 0.403671,
+      "EE": 0.00639,
+      "EE HC3": 0.006826,
+      "t": 63.172084,
+      "valor-p": 0.0,
+      "valor-p HC3": 0.0,
+      "IC inf": 0.391147,
+      "IC sup": 0.416195,
+      "IC HC3 inf": 0.390293,
+      "IC HC3 sup": 0.417049,
+      "EE HC3 / EE": 1.068154,
+      "%Δ": 49.731159,
+      "%Δ inf": 47.867585,
+      "%Δ sup": 51.618219,
+      "%Δ HC3 inf": 47.741388,
+      "%Δ HC3 sup": 51.747727
+    },
+    "capitulo: F00-F99": {
+      "β": 1.146883,
+      "EE": 0.007213,
+      "EE HC3": 0.009796,
+      "t": 159.012932,
+      "valor-p": 0.0,
+      "valor-p HC3": 0.0,
+      "IC inf": 1.132746,
+      "IC sup": 1.161019,
+      "IC HC3 inf": 1.127683,
+      "IC HC3 sup": 1.166082,
+      "EE HC3 / EE": 1.358172,
+      "%Δ": 214.836267,
+      "%Δ inf": 210.416963,
+      "%Δ sup": 219.318486,
+      "%Δ HC3 inf": 208.849126,
+      "%Δ HC3 sup": 220.93947
+    },
+    "capitulo: G00-G99": {
+      "β": 0.264536,
+      "EE": 0.007587,
+      "EE HC3": 0.008893,
+      "t": 34.866168,
+      "valor-p": 0.0,
+      "valor-p HC3": 0.0,
+      "IC inf": 0.249666,
+      "IC sup": 0.279407,
+      "IC HC3 inf": 0.247106,
+      "IC HC3 sup": 0.281966,
+      "EE HC3 / EE": 1.172098,
+      "%Δ": 30.282677,
+      "%Δ inf": 28.359624,
+      "%Δ sup": 32.234541,
+      "%Δ HC3 inf": 28.031507,
+      "%Δ HC3 sup": 32.57343
+    },
+    "capitulo: H00-H59": {
+      "β": -0.384828,
+      "EE": 0.013722,
+      "EE HC3": 0.012025,
+      "t": -28.045244,
+      "valor-p": 0.0,
+      "valor-p HC3": 0.0,
+      "IC inf": -0.411722,
+      "IC sup": -0.357934,
+      "IC HC3 inf": -0.408396,
+      "IC HC3 sup": -0.36126,
+      "EE HC3 / EE": 0.876319,
+      "%Δ": -31.943241,
+      "%Δ inf": -33.74917,
+      "%Δ sup": -30.088085,
+      "%Δ HC3 inf": -33.528461,
+      "%Δ HC3 sup": -30.320217
+    },
+    "capitulo: H60-H95": {
+      "β": -0.305609,
+      "EE": 0.021644,
+      "EE HC3": 0.017419,
+      "t": -14.119796,
+      "valor-p": 0.0,
+      "valor-p HC3": 0.0,
+      "IC inf": -0.34803,
+      "IC sup": -0.263187,
+      "IC HC3 inf": -0.339749,
+      "IC HC3 sup": -0.271468,
+      "EE HC3 / EE": 0.804782,
+      "%Δ": -26.332521,
+      "%Δ inf": -29.392248,
+      "%Δ sup": -23.140204,
+      "%Δ HC3 inf": -28.805128,
+      "%Δ HC3 sup": -23.774041
+    },
+    "capitulo: I00-I99": {
+      "β": 0.396431,
+      "EE": 0.004219,
+      "EE HC3": 0.004482,
+      "t": 93.960169,
+      "valor-p": 0.0,
+      "valor-p HC3": 0.0,
+      "IC inf": 0.388162,
+      "IC sup": 0.4047,
+      "IC HC3 inf": 0.387646,
+      "IC HC3 sup": 0.405215,
+      "EE HC3 / EE": 1.062278,
+      "%Δ": 48.650982,
+      "%Δ inf": 47.426801,
+      "%Δ sup": 49.885329,
+      "%Δ HC3 inf": 47.350873,
+      "%Δ HC3 sup": 49.962563
+    },
+    "capitulo: J00-J99": {
+      "β": 0.38837,
+      "EE": 0.00477,
+      "EE HC3": 0.005071,
+      "t": 81.418104,
+      "valor-p": 0.0,
+      "valor-p HC3": 0.0,
+      "IC inf": 0.379021,
+      "IC sup": 0.397719,
+      "IC HC3 inf": 0.378432,
+      "IC HC3 sup": 0.398308,
+      "EE HC3 / EE": 1.06299,
+      "%Δ": 47.457559,
+      "%Δ inf": 46.085376,
+      "%Δ sup": 48.842631,
+      "%Δ HC3 inf": 45.999346,
+      "%Δ HC3 sup": 48.930336
+    },
+    "capitulo: L00-L99": {
+      "β": 0.479554,
+      "EE": 0.008563,
+      "EE HC3": 0.009108,
+      "t": 55.999909,
+      "valor-p": 0.0,
+      "valor-p HC3": 0.0,
+      "IC inf": 0.46277,
+      "IC sup": 0.496338,
+      "IC HC3 inf": 0.461703,
+      "IC HC3 sup": 0.497405,
+      "EE HC3 / EE": 1.063531,
+      "%Δ": 61.535408,
+      "%Δ inf": 58.846801,
+      "%Δ sup": 64.26952,
+      "%Δ HC3 inf": 58.677464,
+      "%Δ HC3 sup": 64.444826
+    },
+    "capitulo: M00-M99": {
+      "β": -0.087645,
+      "EE": 0.005875,
+      "EE HC3": 0.005874,
+      "t": -14.919047,
+      "valor-p": 0.0,
+      "valor-p HC3": 0.0,
+      "IC inf": -0.099159,
+      "IC sup": -0.076131,
+      "IC HC3 inf": -0.099157,
+      "IC HC3 sup": -0.076133,
+      "EE HC3 / EE": 0.999819,
+      "%Δ": -8.391386,
+      "%Δ inf": -9.440138,
+      "%Δ sup": -7.33049,
+      "%Δ HC3 inf": -9.439967,
+      "%Δ HC3 sup": -7.330665
+    },
+    "capitulo: N00-N99": {
+      "β": 0.095324,
+      "EE": 0.004283,
+      "EE HC3": 0.004158,
+      "t": 22.25504,
+      "valor-p": 0.0,
+      "valor-p HC3": 0.0,
+      "IC inf": 0.086929,
+      "IC sup": 0.103719,
+      "IC HC3 inf": 0.087174,
+      "IC HC3 sup": 0.103473,
+      "EE HC3 / EE": 0.970772,
+      "%Δ": 10.001483,
+      "%Δ inf": 9.081886,
+      "%Δ sup": 10.928834,
+      "%Δ HC3 inf": 9.10864,
+      "%Δ HC3 sup": 10.901633
+    },
+    "capitulo: O00-O99": {
+      "β": 0.079226,
+      "EE": 0.003594,
+      "EE HC3": 0.003149,
+      "t": 22.04114,
+      "valor-p": 0.0,
+      "valor-p HC3": 0.0,
+      "IC inf": 0.072181,
+      "IC sup": 0.086271,
+      "IC HC3 inf": 0.073054,
+      "IC HC3 sup": 0.085398,
+      "EE HC3 / EE": 0.876029,
+      "%Δ": 8.244888,
+      "%Δ inf": 7.484981,
+      "%Δ sup": 9.010167,
+      "%Δ HC3 inf": 7.578885,
+      "%Δ HC3 sup": 8.915014
+    },
+    "capitulo: P00-P96": {
+      "β": 0.805449,
+      "EE": 0.007463,
+      "EE HC3": 0.008902,
+      "t": 107.932546,
+      "valor-p": 0.0,
+      "valor-p HC3": 0.0,
+      "IC inf": 0.790823,
+      "IC sup": 0.820076,
+      "IC HC3 inf": 0.788,
+      "IC HC3 sup": 0.822898,
+      "EE HC3 / EE": 1.192955,
+      "%Δ": 123.770152,
+      "%Δ inf": 120.521043,
+      "%Δ sup": 127.067133,
+      "%Δ HC3 inf": 119.899496,
+      "%Δ HC3 sup": 127.708939
+    },
+    "capitulo: Q00-Q99": {
+      "β": 0.367162,
+      "EE": 0.010463,
+      "EE HC3": 0.013882,
+      "t": 35.091003,
+      "valor-p": 0.0,
+      "valor-p HC3": 0.0,
+      "IC inf": 0.346654,
+      "IC sup": 0.387669,
+      "IC HC3 inf": 0.339953,
+      "IC HC3 sup": 0.39437,
+      "EE HC3 / EE": 1.326749,
+      "%Δ": 44.363105,
+      "%Δ inf": 41.432747,
+      "%Δ sup": 47.354178,
+      "%Δ HC3 inf": 40.488141,
+      "%Δ HC3 sup": 48.344949
+    },
+    "capitulo: R00-R99": {
+      "β": -0.099575,
+      "EE": 0.008342,
+      "EE HC3": 0.007718,
+      "t": -11.936805,
+      "valor-p": 0.0,
+      "valor-p HC3": 0.0,
+      "IC inf": -0.115924,
+      "IC sup": -0.083225,
+      "IC HC3 inf": -0.114702,
+      "IC HC3 sup": -0.084447,
+      "EE HC3 / EE": 0.925243,
+      "%Δ": -9.477771,
+      "%Δ inf": -10.945749,
+      "%Δ sup": -7.985595,
+      "%Δ HC3 inf": -10.836859,
+      "%Δ HC3 sup": -8.097967
+    },
+    "capitulo: S00-T98": {
+      "β": 0.243441,
+      "EE": 0.003953,
+      "EE HC3": 0.004278,
+      "t": 61.578035,
+      "valor-p": 0.0,
+      "valor-p HC3": 0.0,
+      "IC inf": 0.235693,
+      "IC sup": 0.25119,
+      "IC HC3 inf": 0.235057,
+      "IC HC3 sup": 0.251826,
+      "EE HC3 / EE": 1.08205,
+      "%Δ": 27.563153,
+      "%Δ inf": 26.57855,
+      "%Δ sup": 28.555414,
+      "%Δ HC3 inf": 26.498084,
+      "%Δ HC3 sup": 28.637189
+    },
+    "capitulo: U00-U99": {
+      "β": 0.880432,
+      "EE": 0.005423,
+      "EE HC3": 0.005895,
+      "t": 162.36548,
+      "valor-p": 0.0,
+      "valor-p HC3": 0.0,
+      "IC inf": 0.869804,
+      "IC sup": 0.89106,
+      "IC HC3 inf": 0.868878,
+      "IC HC3 sup": 0.891985,
+      "EE HC3 / EE": 1.087074,
+      "%Δ": 141.194033,
+      "%Δ inf": 138.644202,
+      "%Δ sup": 143.771107,
+      "%Δ HC3 inf": 138.423412,
+      "%Δ HC3 sup": 143.99685
+    },
+    "capitulo: Z00-Z99": {
+      "β": -0.355562,
+      "EE": 0.007301,
+      "EE HC3": 0.006735,
+      "t": -48.70191,
+      "valor-p": 0.0,
+      "valor-p HC3": 0.0,
+      "IC inf": -0.369872,
+      "IC sup": -0.341253,
+      "IC HC3 inf": -0.368763,
+      "IC HC3 sup": -0.342362,
+      "EE HC3 / EE": 0.9225,
+      "%Δ": -29.922075,
+      "%Δ inf": -30.917701,
+      "%Δ sup": -28.9121,
+      "%Δ HC3 inf": -30.841064,
+      "%Δ HC3 sup": -28.990875
+    },
+    "cirugia: Sí": {
+      "β": -0.028175,
+      "EE": 0.002249,
+      "EE HC3": 0.002301,
+      "t": -12.528134,
+      "valor-p": 0.0,
+      "valor-p HC3": 0.0,
+      "IC inf": -0.032583,
+      "IC sup": -0.023767,
+      "IC HC3 inf": -0.032686,
+      "IC HC3 sup": -0.023665,
+      "EE HC3 / EE": 1.02324,
+      "%Δ": -2.778208,
+      "%Δ inf": -3.205808,
+      "%Δ sup": -2.348719,
+      "%Δ HC3 inf": -3.215731,
+      "%Δ HC3 sup": -2.338708
+    },
+    "fallecido: Sí": {
+      "β": 0.060738,
+      "EE": 0.005157,
+      "EE HC3": 0.006902,
+      "t": 11.777023,
+      "valor-p": 0.0,
+      "valor-p HC3": 0.0,
+      "IC inf": 0.05063,
+      "IC sup": 0.070846,
+      "IC HC3 inf": 0.047209,
+      "IC HC3 sup": 0.074266,
+      "EE HC3 / EE": 1.338354,
+      "%Δ": 6.262011,
+      "%Δ inf": 5.193311,
+      "%Δ sup": 7.341569,
+      "%Δ HC3 inf": 4.834127,
+      "%Δ HC3 sup": 7.709344
+    },
+    "sexo: HOMBRE": {
+      "β": 0.107213,
+      "EE": 0.00213,
+      "EE HC3": 0.002304,
+      "t": 50.330278,
+      "valor-p": 0.0,
+      "valor-p HC3": 0.0,
+      "IC inf": 0.103038,
+      "IC sup": 0.111389,
+      "IC HC3 inf": 0.102699,
+      "IC HC3 sup": 0.111728,
+      "EE HC3 / EE": 1.08136,
+      "%Δ": 11.317182,
+      "%Δ inf": 10.853389,
+      "%Δ sup": 11.782916,
+      "%Δ HC3 inf": 10.815731,
+      "%Δ HC3 sup": 11.820902
+    },
+    "establecimiento: SNSS": {
+      "β": 0.530372,
+      "EE": 0.00261,
+      "EE HC3": 0.002398,
+      "t": 203.191529,
+      "valor-p": 0.0,
+      "valor-p HC3": 0.0,
+      "IC inf": 0.525256,
+      "IC sup": 0.535487,
+      "IC HC3 inf": 0.525671,
+      "IC HC3 sup": 0.535072,
+      "EE HC3 / EE": 0.918702,
+      "%Δ": 69.956361,
+      "%Δ inf": 69.089099,
+      "%Δ sup": 70.828071,
+      "%Δ HC3 inf": 69.159426,
+      "%Δ HC3 sup": 70.757049
+    },
+    "region: De Aisén del Gral. C. Ibáñez del Campo": {
+      "β": -0.35324,
+      "EE": 0.010287,
+      "EE HC3": 0.010502,
+      "t": -34.337506,
+      "valor-p": 0.0,
+      "valor-p HC3": 0.0,
+      "IC inf": -0.373402,
+      "IC sup": -0.333077,
+      "IC HC3 inf": -0.373824,
+      "IC HC3 sup": -0.332656,
+      "EE HC3 / EE": 1.020877,
+      "%Δ": -29.759114,
+      "%Δ inf": -31.16118,
+      "%Δ sup": -28.328492,
+      "%Δ HC3 inf": -31.190176,
+      "%Δ HC3 sup": -28.298291
+    },
+    "region: De Antofagasta": {
+      "β": -0.013683,
+      "EE": 0.005326,
+      "EE HC3": 0.005172,
+      "t": -2.568932,
+      "valor-p": 0.010201,
+      "valor-p HC3": 0.008151,
+      "IC inf": -0.024122,
+      "IC sup": -0.003243,
+      "IC HC3 inf": -0.023819,
+      "IC HC3 sup": -0.003546,
+      "EE HC3 / EE": 0.970959,
+      "%Δ": -1.358953,
+      "%Δ inf": -2.383333,
+      "%Δ sup": -0.323823,
+      "%Δ HC3 inf": -2.353752,
+      "%Δ HC3 sup": -0.35402
+    },
+    "region: De Arica y Parinacota": {
+      "β": -0.114648,
+      "EE": 0.011076,
+      "EE HC3": 0.010646,
+      "t": -10.350853,
+      "valor-p": 0.0,
+      "valor-p HC3": 0.0,
+      "IC inf": -0.136357,
+      "IC sup": -0.092939,
+      "IC HC3 inf": -0.135515,
+      "IC HC3 sup": -0.093781,
+      "EE HC3 / EE": 0.96119,
+      "%Δ": -10.832031,
+      "%Δ inf": -12.746919,
+      "%Δ sup": -8.875117,
+      "%Δ HC3 inf": -12.673407,
+      "%Δ HC3 sup": -8.951827
+    },
+    "region: De Atacama": {
+      "β": -0.0422,
+      "EE": 0.007348,
+      "EE HC3": 0.007231,
+      "t": -5.742885,
+      "valor-p": 0.0,
+      "valor-p HC3": 0.0,
+      "IC inf": -0.056602,
+      "IC sup": -0.027798,
+      "IC HC3 inf": -0.056373,
+      "IC HC3 sup": -0.028027,
+      "EE HC3 / EE": 0.984042,
+      "%Δ": -4.132188,
+      "%Δ inf": -5.503004,
+      "%Δ sup": -2.741487,
+      "%Δ HC3 inf": -5.481307,
+      "%Δ HC3 sup": -2.763813
+    },
+    "region: De Coquimbo": {
+      "β": -0.076251,
+      "EE": 0.00503,
+      "EE HC3": 0.004922,
+      "t": -15.160569,
+      "valor-p": 0.0,
+      "valor-p HC3": 0.0,
+      "IC inf": -0.086108,
+      "IC sup": -0.066393,
+      "IC HC3 inf": -0.085899,
+      "IC HC3 sup": -0.066603,
+      "EE HC3 / EE": 0.978695,
+      "%Δ": -7.341611,
+      "%Δ inf": -8.250525,
+      "%Δ sup": -6.423693,
+      "%Δ HC3 inf": -8.231269,
+      "%Δ HC3 sup": -6.443328
+    },
+    "region: De La Araucanía": {
+      "β": -0.074113,
+      "EE": 0.004049,
+      "EE HC3": 0.004077,
+      "t": -18.305846,
+      "valor-p": 0.0,
+      "valor-p HC3": 0.0,
+      "IC inf": -0.082048,
+      "IC sup": -0.066178,
+      "IC HC3 inf": -0.082104,
+      "IC HC3 sup": -0.066122,
+      "EE HC3 / EE": 1.006974,
+      "%Δ": -7.143323,
+      "%Δ inf": -7.877236,
+      "%Δ sup": -6.403564,
+      "%Δ HC3 inf": -7.882346,
+      "%Δ HC3 sup": -6.398371
+    },
+    "region: De Los Lagos": {
+      "β": -0.124898,
+      "EE": 0.004195,
+      "EE HC3": 0.004081,
+      "t": -29.774494,
+      "valor-p": 0.0,
+      "valor-p HC3": 0.0,
+      "IC inf": -0.133119,
+      "IC sup": -0.116676,
+      "IC HC3 inf": -0.132897,
+      "IC HC3 sup": -0.116898,
+      "EE HC3 / EE": 0.972931,
+      "%Δ": -11.741269,
+      "%Δ inf": -12.463925,
+      "%Δ sup": -11.012646,
+      "%Δ HC3 inf": -12.444453,
+      "%Δ HC3 sup": -11.032437
+    },
+    "region: De Los Ríos": {
+      "β": -0.172084,
+      "EE": 0.005713,
+      "EE HC3": 0.005685,
+      "t": -30.120376,
+      "valor-p": 0.0,
+      "valor-p HC3": 0.0,
+      "IC inf": -0.183281,
+      "IC sup": -0.160886,
+      "IC HC3 inf": -0.183226,
+      "IC HC3 sup": -0.160941,
+      "EE HC3 / EE": 0.995031,
+      "%Δ": -15.809132,
+      "%Δ inf": -16.746616,
+      "%Δ sup": -14.861092,
+      "%Δ HC3 inf": -16.742,
+      "%Δ HC3 sup": -14.865812
+    },
+    "region: De Magallanes y de La Antártica Chilena": {
+      "β": -0.019856,
+      "EE": 0.009919,
+      "EE HC3": 0.010093,
+      "t": -2.001842,
+      "valor-p": 0.045302,
+      "valor-p HC3": 0.049153,
+      "IC inf": -0.039297,
+      "IC sup": -0.000415,
+      "IC HC3 inf": -0.03964,
+      "IC HC3 sup": -7.3e-05,
+      "EE HC3 / EE": 1.017576,
+      "%Δ": -1.966059,
+      "%Δ inf": -3.853537,
+      "%Δ sup": -0.041528,
+      "%Δ HC3 inf": -3.886416,
+      "%Δ HC3 sup": -0.007333
+    },
+    "region: De Tarapacá": {
+      "β": -0.081723,
+      "EE": 0.007274,
+      "EE HC3": 0.006511,
+      "t": -11.234254,
+      "valor-p": 0.0,
+      "valor-p HC3": 0.0,
+      "IC inf": -0.095981,
+      "IC sup": -0.067465,
+      "IC HC3 inf": -0.094484,
+      "IC HC3 sup": -0.068962,
+      "EE HC3 / EE": 0.895015,
+      "%Δ": -7.847299,
+      "%Δ inf": -9.151864,
+      "%Δ sup": -6.524002,
+      "%Δ HC3 inf": -9.015796,
+      "%Δ HC3 sup": -6.663796
+    },
+    "region: De Valparaíso": {
+      "β": 0.003189,
+      "EE": 0.003386,
+      "EE HC3": 0.003417,
+      "t": 0.94191,
+      "valor-p": 0.346239,
+      "valor-p HC3": 0.350674,
+      "IC inf": -0.003447,
+      "IC sup": 0.009825,
+      "IC HC3 inf": -0.003508,
+      "IC HC3 sup": 0.009887,
+      "EE HC3 / EE": 1.009245,
+      "%Δ": 0.319418,
+      "%Δ inf": -0.344097,
+      "%Δ sup": 0.98735,
+      "%Δ HC3 inf": -0.350222,
+      "%Δ HC3 sup": 0.993558
+    },
+    "region: De Ñuble": {
+      "β": -0.071368,
+      "EE": 0.005494,
+      "EE HC3": 0.00534,
+      "t": -12.989664,
+      "valor-p": 0.0,
+      "valor-p HC3": 0.0,
+      "IC inf": -0.082137,
+      "IC sup": -0.0606,
+      "IC HC3 inf": -0.081834,
+      "IC HC3 sup": -0.060902,
+      "EE HC3 / EE": 0.971882,
+      "%Δ": -6.888097,
+      "%Δ inf": -7.885393,
+      "%Δ sup": -5.880004,
+      "%Δ HC3 inf": -7.857515,
+      "%Δ HC3 sup": -5.90848
+    },
+    "region: Del Bíobío": {
+      "β": -0.13298,
+      "EE": 0.003273,
+      "EE HC3": 0.003261,
+      "t": -40.629637,
+      "valor-p": 0.0,
+      "valor-p HC3": 0.0,
+      "IC inf": -0.139395,
+      "IC sup": -0.126565,
+      "IC HC3 inf": -0.139371,
+      "IC HC3 sup": -0.126589,
+      "EE HC3 / EE": 0.996269,
+      "%Δ": -12.451725,
+      "%Δ inf": -13.011543,
+      "%Δ sup": -11.888304,
+      "%Δ HC3 inf": -13.00947,
+      "%Δ HC3 sup": -11.890403
+    },
+    "region: Del Libertador B. O'Higgins": {
+      "β": -0.099923,
+      "EE": 0.004437,
+      "EE HC3": 0.004253,
+      "t": -22.519197,
+      "valor-p": 0.0,
+      "valor-p HC3": 0.0,
+      "IC inf": -0.10862,
+      "IC sup": -0.091227,
+      "IC HC3 inf": -0.10826,
+      "IC HC3 sup": -0.091587,
+      "EE HC3 / EE": 0.958577,
+      "%Δ": -9.509334,
+      "%Δ inf": -10.292908,
+      "%Δ sup": -8.718916,
+      "%Δ HC3 inf": -10.260598,
+      "%Δ HC3 sup": -8.751781
+    },
+    "region: Del Maule": {
+      "β": -0.135369,
+      "EE": 0.004031,
+      "EE HC3": 0.003966,
+      "t": -33.585018,
+      "valor-p": 0.0,
+      "valor-p HC3": 0.0,
+      "IC inf": -0.143269,
+      "IC sup": -0.127469,
+      "IC HC3 inf": -0.143143,
+      "IC HC3 sup": -0.127595,
+      "EE HC3 / EE": 0.984073,
+      "%Δ": -12.660618,
+      "%Δ inf": -13.347872,
+      "%Δ sup": -11.967913,
+      "%Δ HC3 inf": -13.33698,
+      "%Δ HC3 sup": -11.978978
+    },
+    "edad_c": {
+      "β": 0.008878,
+      "EE": 4.8e-05,
+      "EE HC3": 5e-05,
+      "t": 185.950976,
+      "valor-p": 0.0,
+      "valor-p HC3": 0.0,
+      "IC inf": 0.008785,
+      "IC sup": 0.008972,
+      "IC HC3 inf": 0.00878,
+      "IC HC3 sup": 0.008977,
+      "EE HC3 / EE": 1.053676,
+      "%Δ": 0.89177,
+      "%Δ inf": 0.882329,
+      "%Δ sup": 0.901212,
+      "%Δ HC3 inf": 0.881822,
+      "%Δ HC3 sup": 0.901719
+    },
+    "I(edad_c ** 2)": {
+      "β": 1.1e-05,
+      "EE": 2e-06,
+      "EE HC3": 2e-06,
+      "t": 5.769216,
+      "valor-p": 0.0,
+      "valor-p HC3": 0.0,
+      "IC inf": 7e-06,
+      "IC sup": 1.4e-05,
+      "IC HC3 inf": 7e-06,
+      "IC HC3 sup": 1.4e-05,
+      "EE HC3 / EE": 1.060406,
+      "%Δ": 0.001059,
+      "%Δ inf": 0.000699,
+      "%Δ sup": 0.001418,
+      "%Δ HC3 inf": 0.000677,
+      "%Δ HC3 sup": 0.00144
+    }
+  },
+  "hc3_resumen": {
+    "razon_min": 0.804781864575226,
+    "razon_max": 1.3581716496275542,
+    "coef_razon_min": "capitulo: H60-H95",
+    "coef_razon_max": "capitulo: F00-F99",
+    "cambios_significancia": 0
+  },
+  "ftest": {
+    "capitulo": {
+      "gl": 20.0,
+      "F": 3867.18893,
+      "valor-p": 0.0
+    },
+    "cirugia": {
+      "gl": 1.0,
+      "F": 156.95415,
+      "valor-p": 0.0
+    },
+    "fallecido": {
+      "gl": 1.0,
+      "F": 138.69827,
+      "valor-p": 0.0
+    },
+    "sexo": {
+      "gl": 1.0,
+      "F": 2533.13684,
+      "valor-p": 0.0
+    },
+    "establecimiento": {
+      "gl": 1.0,
+      "F": 41286.79731,
+      "valor-p": 0.0
+    },
+    "region": {
+      "gl": 15.0,
+      "F": 310.09822,
+      "valor-p": 0.0
+    }
+  },
+  "exp_intercepto": 1.8222566925224426,
+  "pct_edad_74_5": 31.129450265255,
+  "edad_observada_ajustada": {
+    "0.5": {
+      "log_dias": 1.4697,
+      "ajuste_ln": 1.3311
+    },
+    "5.0": {
+      "log_dias": 0.822,
+      "ajuste_ln": 0.9314
+    },
+    "14.5": {
+      "log_dias": 1.0159,
+      "ajuste_ln": 1.0045
+    },
+    "24.5": {
+      "log_dias": 0.9423,
+      "ajuste_ln": 0.9312
+    },
+    "34.5": {
+      "log_dias": 0.9654,
+      "ajuste_ln": 0.9996
+    },
+    "44.5": {
+      "log_dias": 1.1451,
+      "ajuste_ln": 1.1916
+    },
+    "54.5": {
+      "log_dias": 1.368,
+      "ajuste_ln": 1.3478
+    },
+    "64.5": {
+      "log_dias": 1.5202,
+      "ajuste_ln": 1.4767
+    },
+    "74.5": {
+      "log_dias": 1.6388,
+      "ajuste_ln": 1.6068
+    },
+    "84.5": {
+      "log_dias": 1.7002,
+      "ajuste_ln": 1.7304
+    },
+    "92.5": {
+      "log_dias": 1.6443,
+      "ajuste_ln": 1.8099
+    }
+  },
+  "deciles": {
+    "1": {
+      "egresos": 96810,
+      "ajustada (media geométrica)": 1.597,
+      "observada (media geométrica)": 1.6634,
+      "observada (mediana)": 2.0
+    },
+    "2": {
+      "egresos": 96810,
+      "ajustada (media geométrica)": 2.215,
+      "observada (media geométrica)": 2.1412,
+      "observada (mediana)": 2.0
+    },
+    "3": {
+      "egresos": 96810,
+      "ajustada (media geométrica)": 2.5906,
+      "observada (media geométrica)": 2.4973,
+      "observada (mediana)": 2.0
+    },
+    "4": {
+      "egresos": 96809,
+      "ajustada (media geométrica)": 2.8213,
+      "observada (media geométrica)": 2.6143,
+      "observada (mediana)": 2.0
+    },
+    "5": {
+      "egresos": 96810,
+      "ajustada (media geométrica)": 3.1075,
+      "observada (media geométrica)": 2.9591,
+      "observada (mediana)": 3.0
+    },
+    "6": {
+      "egresos": 96810,
+      "ajustada (media geométrica)": 3.5672,
+      "observada (media geométrica)": 3.6732,
+      "observada (mediana)": 3.0
+    },
+    "7": {
+      "egresos": 96809,
+      "ajustada (media geométrica)": 4.1804,
+      "observada (media geométrica)": 4.557,
+      "observada (mediana)": 4.0
+    },
+    "8": {
+      "egresos": 96810,
+      "ajustada (media geométrica)": 4.876,
+      "observada (media geométrica)": 5.2837,
+      "observada (mediana)": 5.0
+    },
+    "9": {
+      "egresos": 96810,
+      "ajustada (media geométrica)": 5.7318,
+      "observada (media geométrica)": 5.9878,
+      "observada (mediana)": 6.0
+    },
+    "10": {
+      "egresos": 96810,
+      "ajustada (media geométrica)": 8.0538,
+      "observada (media geométrica)": 7.4004,
+      "observada (mediana)": 8.0
+    }
+  },
+  "vif_max": 2.3594070757013106,
+  "rango_X": 42,
+  "sd_residuos_cuartil": {
+    "Q1": 0.7131134005278801,
+    "Q2": 0.8469579079062516,
+    "Q3": 1.0385218040387905,
+    "Q4": 1.0611076100987675
+  },
+  "asimetria_residuos": 0.4921758271712754,
+  "curtosis_residuos": 0.54180966742372,
+  "especificaciones": {
+    "M3": {
+      "k": 42,
+      "R² aj.": 0.19799,
+      "AIC": 2600604.32645,
+      "BIC": 2601099.21617,
+      "Δ BIC": NaN,
+      "F parcial": NaN,
+      "gl": NaN,
+      "valor-p": NaN,
+      "η² parcial": NaN
+    },
+    "M4": {
+      "k": 50,
+      "R² aj.": 0.20186,
+      "AIC": 2595922.07992,
+      "BIC": 2596511.23435,
+      "Δ BIC": -4587.98182,
+      "F parcial": 588.67778,
+      "gl": 8.0,
+      "valor-p": 0.0,
+      "η² parcial": 0.00484
+    },
+    "M5": {
+      "k": 70,
+      "R² aj.": 0.21397,
+      "AIC": 2581148.53391,
+      "BIC": 2581973.35012,
+      "Δ BIC": -14537.88423,
+      "F parcial": 746.31916,
+      "gl": 20.0,
+      "valor-p": 0.0,
+      "η² parcial": 0.01519
+    },
+    "M6": {
+      "k": 80,
+      "R² aj.": 0.21461,
+      "AIC": 2580367.63408,
+      "BIC": 2581310.28117,
+      "Δ BIC": -663.06894,
+      "F parcial": 80.1165,
+      "gl": 10.0,
+      "valor-p": 0.0,
+      "η² parcial": 0.00083
+    }
+  },
+  "especificacion_menor_bic": "M6",
+  "sensibilidad_variables": {
+    "M3": {
+      "k": 42,
+      "R² aj.": 0.197986,
+      "BIC": 2601099.216171,
+      "F parcial": NaN,
+      "valor-p": NaN,
+      "η² parcial": NaN
+    },
+    "M3 + nacionalidad + etnia": {
+      "k": 44,
+      "R² aj.": 0.197997,
+      "BIC": 2601111.79337,
+      "F parcial": 7.494207,
+      "valor-p": 0.000556,
+      "η² parcial": 1.5e-05
+    }
+  },
+  "forward_pasos": {
+    "0": {
+      "entra": "intercepto",
+      "factores incluidos": "ninguno",
+      "SSE": 1037265.828655,
+      "k": 1,
+      "BIC": 2814165.529492,
+      "R² ajustado": -0.0,
+      "ΔBIC": NaN,
+      "F parcial": NaN,
+      "valor-p": NaN
+    },
+    "1": {
+      "entra": "capítulo",
+      "factores incluidos": "capítulo",
+      "SSE": 907552.164983,
+      "k": 21,
+      "BIC": 2685110.585583,
+      "R² ajustado": 0.125035,
+      "ΔBIC": -129054.943909,
+      "F parcial": 6918.21469,
+      "valor-p": 0.0
+    },
+    "2": {
+      "entra": "establecimiento",
+      "factores incluidos": "capítulo, establecimiento",
+      "SSE": 869579.184129,
+      "k": 22,
+      "BIC": 2643746.264402,
+      "R² ajustado": 0.161644,
+      "ΔBIC": -41364.321182,
+      "F parcial": 42274.162128,
+      "valor-p": 0.0
+    },
+    "3": {
+      "entra": "edad y edad²",
+      "factores incluidos": "capítulo, establecimiento, edad y edad²",
+      "SSE": 838345.511633,
+      "k": 24,
+      "BIC": 2608361.698646,
+      "R² ajustado": 0.191755,
+      "ΔBIC": -35384.565755,
+      "F parcial": 18033.439584,
+      "valor-p": 0.0
+    },
+    "4": {
+      "entra": "región",
+      "factores incluidos": "capítulo, establecimiento, edad y edad², región",
+      "SSE": 834340.157831,
+      "k": 39,
+      "BIC": 2603932.089817,
+      "R² ajustado": 0.195604,
+      "ΔBIC": -4429.608829,
+      "F parcial": 309.819183,
+      "valor-p": 0.0
+    },
+    "5": {
+      "entra": "sexo",
+      "factores incluidos": "capítulo, establecimiento, edad y edad², región, sexo",
+      "SSE": 832126.831632,
+      "k": 40,
+      "BIC": 2601374.303303,
+      "R² ajustado": 0.197737,
+      "ΔBIC": -2557.786514,
+      "F parcial": 2574.88168,
+      "valor-p": 0.0
+    },
+    "6": {
+      "entra": "cirugía",
+      "factores incluidos": "capítulo, establecimiento, edad y edad², región, sexo, cirugía",
+      "SSE": 831985.912952,
+      "k": 41,
+      "BIC": 2601224.127438,
+      "R² ajustado": 0.197872,
+      "ΔBIC": -150.175865,
+      "F parcial": 163.965895,
+      "valor-p": 0.0
+    },
+    "7": {
+      "entra": "condición de egreso",
+      "factores incluidos": "capítulo, establecimiento, edad y edad², región, sexo, cirugía, condición de egreso",
+      "SSE": 831866.727204,
+      "k": 42,
+      "BIC": 2601099.216171,
+      "R² ajustado": 0.197986,
+      "ΔBIC": -124.911267,
+      "F parcial": 138.698273,
+      "valor-p": 0.0
+    }
+  },
+  "forward_comparacion": {
+    "forward": {
+      "factores": 7,
+      "k": 42,
+      "BIC": 2601099.216171,
+      "R² ajustado": 0.197986,
+      "ΔBIC vs. M3": 0.0
+    },
+    "M3 completo": {
+      "factores": 7,
+      "k": 42,
+      "BIC": 2601099.216171,
+      "R² ajustado": 0.197986,
+      "ΔBIC vs. M3": 0.0
+    }
+  },
+  "forward_factores": [
+    "capítulo",
+    "establecimiento",
+    "edad y edad²",
+    "región",
+    "sexo",
+    "cirugía",
+    "condición de egreso"
+  ]
+}

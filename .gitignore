@@ -3,7 +3,7 @@
 /data/raw/x*/*.csv
 /figures/
 /results/*
-!/results/cifras_avance2_v7.json
+!/results/cifras_avance2_v8.json
 /.claude/
 /.material_curso/
 /.presentacion/
@@ -18,3 +18,24 @@ bitacora_*.md
 /paper/*.lot
 /paper/log.txt
 __pycache__/
+
+# superlite: dependency, build and cache folders
+.superlite/
+.DS_Store
+Thumbs.db
+.idea/
+*.swp
+venv/
+*.pyc
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.egg-info/
+build/
+dist/
+
+# Archivos locales de planificación y generación
+*.md
+/docs/
+/scripts/
+/entrega_c2/
