@@ -35,9 +35,9 @@ def test_cajas_precalculadas():
 def test_tema():
     import plotly.graph_objects as go
     f = graficos.tema(go.Figure(), "Título")
-    assert "Figtree" in f.layout.font.family
+    assert "Public Sans" in f.layout.font.family
     assert f.layout.separators == ",."
-    assert f.layout.font.color == "#132f38" and f.layout.colorway[0] == "#086c70"
+    assert f.layout.font.color == graficos.TINTA and f.layout.colorway[0] == graficos.ACENTO
 
 
 def test_dispersion_es_una_imagen():
@@ -60,6 +60,6 @@ def test_resto_construye():
 def test_colores_de_serie_y_umbral():
     df = pd.DataFrame({"x": [1, 2], "observada": [2, 3], "ajustada": [1, 2], "lo": [1, 2], "hi": [3, 4]})
     fig = graficos.lineas(df, "x", ["observada", "ajustada"], banda=("lo", "hi"))
-    assert [t.line.color for t in fig.data[2:]] == [graficos.ACENTO, graficos.REFERENCIA]
-    assert graficos.ALERTA not in fig.layout.colorway
-    assert graficos.barras(df, "x", "observada", linea=2).layout.shapes[0].line.color == graficos.ALERTA
+    assert [t.line.color for t in fig.data[2:]] == [graficos.ACENTO, graficos.TINTA]
+    assert graficos.UMBRAL not in fig.layout.colorway
+    assert graficos.barras(df, "x", "observada", linea=2).layout.shapes[0].line.color == graficos.UMBRAL

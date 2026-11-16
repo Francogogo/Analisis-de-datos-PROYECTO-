@@ -66,6 +66,8 @@
      si llegan a una pestaña oculta esperan a que se abra. */
   $(document).on('shiny:value', function (ev) {
     const salida = ev.target;
+    // Corta ya la animación en curso: si no, su próximo cuadro pisa el valor nuevo antes de leerlo.
+    cifrasDe(salida).forEach(function (el) { el._rueda = null; });
     requestAnimationFrame(function () {
       cifrasDe(salida).forEach(function (el) {
         if (visible(el)) rodar(el, previo.has(clave(el)) ? undefined : 0);

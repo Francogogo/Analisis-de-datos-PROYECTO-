@@ -74,4 +74,4 @@ def test_figuras(m3):
     f = p_whatif.fig_edad(p, m3)
     assert f.data[-1].x[0] == 70 and len(f.data[2].x) == 93
     n = p_whatif.fig_niveles(p, "sexo", m3)
-    assert list(n.data[0].y) == ["MUJER", "HOMBRE"]
+    assert [y for t in n.data for y in t.y] == ["MUJER", "HOMBRE"]

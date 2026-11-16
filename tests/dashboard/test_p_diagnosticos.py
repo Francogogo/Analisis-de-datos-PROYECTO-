@@ -48,7 +48,7 @@ def test_figuras(d):
 def test_observada_y_ajustada_conservan_color(d):
     for fig in (pd_.fig_edad(d.cifras), pd_.fig_deciles(d.cifras)):
         assert {t.name: t.line.color for t in fig.data} == {
-            "Observada": pd_.graficos.ACENTO, "Ajustada": pd_.graficos.REFERENCIA,
+            "Observada": pd_.graficos.ACENTO, "Ajustada": pd_.graficos.TINTA,
         }
         observada, ajustada = fig.data
         assert observada.line.dash != "dash" and ajustada.line.dash == "dash"

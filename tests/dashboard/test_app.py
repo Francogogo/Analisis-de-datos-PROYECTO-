@@ -86,7 +86,7 @@ def test_fuentes_locales():
     import app
 
     c = TestClient(app.app)
-    for fuente in ("Figtree-variable.woff2", "BricolageGrotesque-variable.woff2"):
+    for fuente in ("public-sans-latin-wght-normal.woff2", "public-sans-latin-wght-italic.woff2"):
         r = c.get(f"/fonts/{fuente}")
         assert r.status_code == 200 and len(r.content) > 20_000
 

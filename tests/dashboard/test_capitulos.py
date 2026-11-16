@@ -25,8 +25,8 @@ def test_filtrado_y_simulacion_conservan_codigo():
     perfil = {**p_whatif.perfil_ref(d.m3), "capitulo": codigo}
     assert modelo.dias_estimados(perfil, d.m3)[0] > 0
     fig = p_whatif.fig_niveles(perfil, "capitulo", d.m3)
-    assert codigo in fig.data[0].y
-    assert etiquetas.etiqueta("capitulo", codigo) in fig.data[0].customdata
+    assert codigo in [y for t in fig.data for y in t.y]
+    assert etiquetas.etiqueta("capitulo", codigo) in [c for t in fig.data for c in t.customdata]
     assert fig.layout.height >= 21 * 26
     assert fig.layout.yaxis.dtick == 1
     assert etiquetas.etiqueta("capitulo", codigo) in str(p_whatif.leyenda_capitulos(d.m3))
@@ -40,5 +40,5 @@ def test_establecimientos_descriptivos_preservan_codigo():
     d = datos.cargar()
     perfil = p_whatif.perfil_ref(d.m3)
     fig = p_whatif.fig_niveles(perfil, "establecimiento", d.m3)
-    assert etiquetas.etiqueta("establecimiento", "SNSS") in fig.data[0].y
+    assert etiquetas.etiqueta("establecimiento", "SNSS") in [y for t in fig.data for y in t.y]
     assert "Fuera de la red SNSS" in p_whatif.textos_resultado(perfil, d.m3)["ref_desc"]

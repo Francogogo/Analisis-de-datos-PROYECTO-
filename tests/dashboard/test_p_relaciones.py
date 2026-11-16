@@ -110,6 +110,6 @@ def test_contingencia_total_pct(d):
 
 
 def test_colores_prolongada_y_referencia(d):
-    assert pr.fig_prueba(d, "sexo", "prolongada").data[0].marker.color == pr.graficos.ALERTA
+    assert set(pr.fig_prueba(d, "sexo", "prolongada").data[0].marker.color) <= set(pr.graficos.CARGA)
     qq = pr.fig_normalidad(d.base, "edad")
     assert all(t.line.color == pr.graficos.REFERENCIA for t in qq.data if getattr(t, "mode", None) == "lines")

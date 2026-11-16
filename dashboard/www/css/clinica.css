@@ -214,7 +214,7 @@ details[open] summary { margin-bottom: 1rem; }
 }
 .vista-niveles .plotly-salida { height: 666px !important; }
 @supports selector(:has(*)) {
-  .vista-niveles:not(:has(option[value="capitulo"]:checked)) .plotly-salida { height: 460px !important; }
+  .vista-niveles:not(:has(option[value="capitulo"]:checked)) .plotly-salida { height: 400px !important; }
 }
 .ficha-prueba dt { margin-top: .8rem; font-weight: 750; }
 .ficha-prueba dd { margin-bottom: .5rem; }
