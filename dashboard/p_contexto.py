@@ -8,6 +8,11 @@ import componente
 import graficos
 
 TEXTOS = {
+    "color_titulo": "Cómo leer el color",
+    "color_intro": (
+        "El color lleva datos en todo el dashboard y cada familia significa una sola cosa. El largo de una barra o la "
+        "posición de un punto siguen dando el valor; el color agrega a qué grupo pertenece o cuánto pesa."
+    ),
     "titulo": "Contexto del estudio",
     "problema": (
         "En este estudio (UDD, 2026), Diego Muñoz y Franco Pastorini analizamos los egresos FONASA de 2020 para ver "
@@ -26,8 +31,10 @@ TEXTOS = {
     ),
     "formula_conc": (
         "$$\\begin{aligned}\n"
-        "\\text{Estadía prolongada} &\\iff \\text{días}_i > P_{90} = [[corte]]\\text{ días} \\\\\n"
-        "\\text{Proporción de días-cama} &= \\frac{\\sum_{\\text{días}_i > [[corte]]} \\text{días}_i}{\\sum_{i=1}^{n} \\text{días}_i}\n"
+        "&\\text{Estadía prolongada:} \\\\\n"
+        "&\\qquad \\text{días}_i > P_{90} = [[corte]]\\text{ días} \\\\[.6em]\n"
+        "&\\text{Proporción de días-cama:} \\\\\n"
+        "&\\qquad \\frac{\\sum_{\\text{días}_i > [[corte]]} \\text{días}_i}{\\sum_{i=1}^{n} \\text{días}_i}\n"
         "\\end{aligned}$$"
     ),
     "titulo_conc": "Concentración de días-cama",
@@ -41,7 +48,8 @@ TEXTOS = {
          "Un egreso cuenta igual si la estadía duró 1 día o 30, pero la segunda ocupa 30 veces más cama. Los días-cama "
          "son la suma de los días que cada egreso ocupó una cama, así que pesan más los casos largos."),
         ("Cómo leer las barras",
-         "La imagen de arriba muestra 100 egresos tipo, con terracota para las estadías de más de [[corte]] días. "
+         "La sala de arriba muestra 100 camas, cada una con el 1 % de los egresos y una ficha por día de estada. Las rojas son "
+         "estadías de más de [[corte]] días. "
          "Cada barra suma el 100 % de su propio total: una compara proporciones de egresos y la otra de días-cama."),
         ("Qué sugiere esta concentración",
          "Pocas estadías largas explican casi la mitad del uso de camas. Eso indica dónde está la presión sobre la red, "
@@ -304,11 +312,11 @@ def _concentracion_html(c: dict):
             ui.div(ui.span(etiqueta), ui.tags.strong(f"{_num(porcentaje, 1)} %"),
                    class_="concentracion-cabecera"),
             ui.tags.svg(
-                Tag("rect", x="0", y="0", width="100", height="6", rx="1", fill="#244b55"),
-                Tag("line", x1="25", y1="0", x2="25", y2="6", stroke="#132f38", **{"stroke-width": "0.6"}),
-                Tag("line", x1="50", y1="0", x2="50", y2="6", stroke="#132f38", **{"stroke-width": "0.6"}),
-                Tag("line", x1="75", y1="0", x2="75", y2="6", stroke="#132f38", **{"stroke-width": "0.6"}),
-                Tag("rect", x="0", y="0", width=str(float(porcentaje)), height="6", rx="1", fill="#d9644a", class_="concentracion-fill"),
+                Tag("rect", x="0", y="0", width="100", height="6", rx="1", fill="#d3dadb"),
+                Tag("line", x1="25", y1="0", x2="25", y2="6", stroke="#ffffff", **{"stroke-width": "0.6"}),
+                Tag("line", x1="50", y1="0", x2="50", y2="6", stroke="#ffffff", **{"stroke-width": "0.6"}),
+                Tag("line", x1="75", y1="0", x2="75", y2="6", stroke="#ffffff", **{"stroke-width": "0.6"}),
+                Tag("rect", x="0", y="0", width=str(float(porcentaje)), height="6", rx="1", fill=graficos.CARGA[3], class_="concentracion-fill"),
                 viewBox="0 0 100 6", preserveAspectRatio="none", class_="concentracion-barra", aria_hidden="true",
             ),
             class_="concentracion-fila",
@@ -348,6 +356,37 @@ def _hipotesis():
     )
 
 
+def _muestras(pares) -> ui.Tag:
+    """Fila de muestras de color, cada una con su texto al lado."""
+    return ui.tags.ul(*[ui.tags.li(ui.span(class_="muestra", style=f"background:{c}"), t) for c, t in pares],
+                      class_="muestras")
+
+
+def codigo_color() -> ui.Tag:
+    """Clave del código de color: qué significa cada familia en todas las pestañas."""
+    g = graficos
+    tarjetas = [
+        ("Carga de días-cama",
+         "Más oscuro, más carga: el % de estadías de más de 15 días del grupo. Va de arena a rojo profundo, el mismo "
+         "rojo de las torres de estadía prolongada en la sala de la portada.",
+         list(zip(g.CARGA, g.TRAMOS_CARGA))),
+        ("Semáforo de supuestos",
+         "Estado de cada supuesto del modelo. El ícono y la palabra repiten el color, así que se lee también sin él.",
+         [(c, f"{i} {p}") for c, i, p in g.ESTADO.values()]),
+        ("Más o menos días",
+         "Cambio frente a la referencia: rojo alarga la estadía, turquesa la acorta y gris es un intervalo que cruza el 0.",
+         [(g.MENOS, "menos días"), (g.NEUTRO, "sin diferencia clara"), (g.MAS, "más días")]),
+        ("Macrozonas",
+         "Las 16 regiones van de norte a sur en cinco macrozonas, cada una con el color de su paisaje.",
+         [(c, z) for z, c in g.ZONAS.items()]),
+    ]
+    return ui.div(
+        ui.div(*[ui.div(ui.p(t, class_="guia-subcard-titulo"), ui.p(x), _muestras(m), class_="guia-subcard")
+                 for t, x, m in tarjetas], class_="guia-rejilla"),
+        class_="guia-lectura codigo-color",
+    )
+
+
 @module.ui
 def pestana_ui():
     return ui.div(
@@ -361,16 +400,24 @@ def pestana_ui():
             ),
             ui.div(
                 ui.div(
-                    ui.tags.img(
-                        src="assets/hero-3d-poster.webp",
+                    # Poster = last frame: without JS or with reduced motion the still is the final state.
+                    ui.tags.video(
+                        src="assets/hero-sala.webm",
+                        poster="assets/hero-3d-poster.webp",
                         id="hero-3d-img",
                         width="560",
                         height="380",
-                        decoding="async",
-                        fetchpriority="high",
-                        alt="Representación 3D estática de 100 egresos tipo: el 9,4 % en terracota suma el 47,1 % de los días-cama",
+                        muted="",
+                        playsinline="",
+                        preload="auto",
+                        disablepictureinpicture="",
+                        role="img",
+                        aria_label=("Sala de 100 camas vista desde arriba. Cada cama resume el 1 % de los egresos y apila "
+                                    "una ficha por día de estada. Las 9 camas en rojo, de estadía prolongada, suman cerca "
+                                    "de la mitad de las fichas."),
                     ),
-                    ui.p("100 egresos tipo · en terracota, las estadías prolongadas", class_="hero-3d-meta"),
+                    ui.p("100 camas, cada una el 1 % de los egresos. Una ficha por día: las 9 rojas apilan casi la mitad.",
+                         class_="hero-3d-meta"),
                     id="hero-3d-stage",
                     class_="hero-3d-stage",
                 ),
@@ -408,6 +455,8 @@ def pestana_ui():
             ),
             class_="seccion-editorial",
         ),
+        ui.tags.section(ui.h4(TEXTOS["color_titulo"]), ui.p(TEXTOS["color_intro"]), codigo_color(),
+                        class_="seccion-editorial"),
         class_="pestana-texto",
     )
 

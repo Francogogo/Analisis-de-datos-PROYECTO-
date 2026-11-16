@@ -7,7 +7,8 @@
   const SECCION = '.guia-subcard, .componente-resumen, .seccion-editorial, section, .modal-cuerpo, .tab-pane';
   const SALTAR = 'script, style, button, select, option, input, textarea, a, nav, h1, h2, ' +
     '.navbar, .js-plotly-plot, .plotly-salida, .selectize-control, .modal-cabecera, .glos, #glos-tip, [data-noglos]';
-  let terminos = [], porId = {}, regex = null, tip = null, timer = null;
+  let terminos = [], porId = {}, regex = null, tip = null, timer = null, quieto = null;
+  const pendientes = new Set(); // raíces con nodos nuevos por marcar
 
   function escHtml(s) { return s.replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
 
@@ -88,8 +89,8 @@
     }
   }
 
-  function escanear() {
-    document.querySelectorAll('.tab-pane, .modal-cuerpo').forEach(r => { marcarTexto(r); marcarFormulas(r); });
+  function escanear(raices) {
+    (raices || document.querySelectorAll('.tab-pane, .modal-cuerpo')).forEach(r => { marcarTexto(r); marcarFormulas(r); });
   }
 
   /* ---------- tooltip */
@@ -144,7 +145,8 @@
     tip.hidden = true;
     document.body.append(tip);
 
-    document.addEventListener('mouseover', e => { const g = e.target.closest('.glos'); if (g) mostrar(g); });
+    // Mientras la página se desplaza, el puntero cruza términos sin que nadie los apunte: no se abre el tooltip.
+    document.addEventListener('mouseover', e => { const g = !quieto && e.target.closest('.glos'); if (g) mostrar(g); });
     document.addEventListener('mouseout', e => { const g = e.target.closest('.glos'); if (g && !g.contains(e.relatedTarget)) ocultar(); });
     document.addEventListener('focusin', e => { const g = e.target.closest('.glos'); if (g) mostrar(g); });
     document.addEventListener('focusout', e => { if (e.target.closest('.glos')) ocultar(); });
@@ -162,12 +164,23 @@
     document.addEventListener('close', e => {
       if (e.target.id === 'modal-glosario' && e.target._origen && e.target._origen.isConnected) e.target._origen.focus();
     }, true);
-    window.addEventListener('scroll', ocultar, true);
+    window.addEventListener('scroll', () => {
+      if (actualTip) ocultar();
+      clearTimeout(quieto);
+      quieto = setTimeout(() => { quieto = null; }, 150);
+    }, { capture: true, passive: true });
 
+    // Solo se vuelve a recorrer la pestaña o el modal que recibió nodos; los cambios del propio tooltip
+    // y los spans que pone el glosario no cuentan.
     new MutationObserver(muts => {
-      if (muts.every(m => [...m.addedNodes].every(n => n.nodeType === 1 && n.classList.contains('glos')))) return;
+      for (const m of muts) {
+        if (tip.contains(m.target) || [...m.addedNodes].every(n => n.nodeType !== 1 || n.classList.contains('glos'))) continue;
+        const r = m.target.closest && m.target.closest('.tab-pane, .modal-cuerpo');
+        if (r) pendientes.add(r);
+      }
+      if (!pendientes.size) return;
       clearTimeout(timer);
-      timer = setTimeout(escanear, 250);
+      timer = setTimeout(() => { const r = [...pendientes]; pendientes.clear(); escanear(r); }, 250);
     }).observe(document.body, { childList: true, subtree: true });
     escanear();
   }

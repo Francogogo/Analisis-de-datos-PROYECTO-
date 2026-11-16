@@ -40,11 +40,12 @@ def test_tema():
     assert f.layout.font.color == "#132f38" and f.layout.colorway[0] == "#086c70"
 
 
-def test_dispersion_tope():
-    ok = pd.DataFrame({"x": range(20000), "y": range(20000)})
-    assert len(graficos.dispersion(ok, "x", "y").data) == 1
-    with pytest.raises(ValueError):
-        graficos.dispersion(pd.DataFrame({"x": range(20001), "y": range(20001)}), "x", "y")
+def test_dispersion_es_una_imagen():
+    import base64
+    fig = graficos.dispersion(pd.DataFrame({"x": range(50000), "y": range(50000)}), "x", "y")
+    assert len(fig.data) == 0 and len(fig.layout.images) == 1
+    png = base64.b64decode(fig.layout.images[0].source.split(",", 1)[1])
+    assert png.startswith(b"\x89PNG") and fig.layout.xaxis.range[0] < 0 < 49999 < fig.layout.xaxis.range[1]
 
 
 def test_resto_construye():

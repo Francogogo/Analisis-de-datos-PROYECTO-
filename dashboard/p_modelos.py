@@ -373,8 +373,9 @@ def _tabla(cols, filas):
     return ui.tags.table(ui.tags.thead(cab), ui.tags.tbody(*cuerpo), class_="table table-sm tabla-texto")
 
 
-def _tabla_salida(id_, titulo):
-    return ui.div(ui.output_ui(id_), class_="table-responsive", role="region", tabindex="0", aria_label=titulo)
+def _tabla_salida(id_, titulo, clase=""):
+    return ui.div(ui.output_ui(id_), class_=f"table-responsive {clase}".strip(), role="region", tabindex="0",
+                  aria_label=titulo)
 
 
 def _formula(tex: str):
@@ -404,13 +405,18 @@ def fig_metrica(c: dict, metrica: str):
 
 def fig_ranking(c: dict):
     r = ranking(c)
-    fig = graficos.barras(r, "factor", "eta2", horizontal=True, linea=0.01)
+    # Igual que en Conclusiones: color si supera el umbral práctico de 0,01, gris si no.
+    fig = graficos.barras(r, "factor", "eta2", horizontal=True, linea=0.01,
+                          colores=[graficos.ACENTO if v >= 0.01 else graficos.NEUTRO for v in r["eta2"]])
     fig.update_yaxes(autorange="reversed")
     return graficos.tema(fig, "η² parcial por factor")
 
 
 def fig_forest(df: pd.DataFrame):
-    fig = graficos.intervalos(df, "variable", "pct", "inf", "sup")
+    # Divergente: rojo si el IC queda entero sobre 0 (más días), turquesa si queda bajo 0 (menos días), gris si cruza 0.
+    colores = [graficos.MAS if i > 0 else graficos.MENOS if s < 0 else graficos.NEUTRO
+               for i, s in zip(df["inf"], df["sup"])]
+    fig = graficos.intervalos(df, "variable", "pct", "inf", "sup", colores=colores)
     fig.add_vline(x=0, line=dict(color=graficos.REFERENCIA, dash="dash"))
     fig.update_xaxes(title="%Δ en la media geométrica de días")
     fig.update_yaxes(autorange="reversed")
@@ -465,7 +471,7 @@ def pestana_ui():
                 ui.input_select("factor", TEXTOS["coef_factor"], {"": TEXTOS["coef_todos"], **FACTORES}),
             ),
             graficos.salida("graf_forest"),
-            _tabla_salida("tabla_coef", TEXTOS["coef_titulo"]),
+            _tabla_salida("tabla_coef", TEXTOS["coef_titulo"], "tabla-alta"),
             resumen=TEXTOS["coef_resumen"],
             detalle=ui.div(ui.p(TEXTOS["coef"]), _guia("coef")),
         ),

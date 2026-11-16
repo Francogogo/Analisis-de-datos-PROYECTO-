@@ -74,7 +74,6 @@ TEXTOS = {
          "Esa $V$ va de 0 a 1 y mide la asociación entre variables categóricas. Al entrar el capítulo en M3, absorbe esa señal "
          "y deja a ambos con 0,0002 y 0,0001."),
     ],
-    "concl_titulo": "Conclusiones",
     "concl": [
         ("Tres factores explican lo esencial",
          "El capítulo CIE-10, el establecimiento y la edad son los factores que más se asocian con la duración. Sexo, cirugía, "
@@ -207,25 +206,25 @@ def _svg_ranking(c: dict):
 
     elems = [
         Tag("line", x1=f"{x_umbral:.1f}", y1="12", x2=f"{x_umbral:.1f}", y2=str(alto_total - 20),
-            stroke="#a94530", **{"stroke-width": "1.5", "stroke-dasharray": "4 3"}),
-        Tag("text", "Umbral 0,01", x=f"{x_umbral + 5:.1f}", y="16", fill="#a94530",
-            **{"font-size": "11", "font-weight": "700", "font-family": "Figtree, sans-serif"}),
+            stroke=graficos.UMBRAL, **{"stroke-width": "1.5", "stroke-dasharray": "4 3"}),
+        Tag("text", "Umbral 0,01", x=f"{x_umbral + 5:.1f}", y="16", fill=graficos.UMBRAL,
+            **{"font-size": "13", "font-weight": "700", "font-family": "'Public Sans', sans-serif"}),
     ]
     for i, (nombre, datos_f) in enumerate(orden):
         val = datos_f["η² parcial"]
         y = y0 + i * alto_fila
         w = max(2.0, (val / escala) * ancho)
         relevante = val >= UMBRAL
-        fill = "#086c70" if relevante else "#6b7c82"
+        fill = graficos.ACENTO if relevante else graficos.NEUTRO
         etiqueta = nombre[0].upper() + nombre[1:]
         elems.extend([
-            Tag("text", etiqueta, x="0", y=str(y + 15), fill="#132f38",
-                **{"font-size": "12", "font-weight": "650" if relevante else "400", "font-family": "Figtree, sans-serif"}),
+            Tag("text", etiqueta, x="0", y=str(y + 15), fill=graficos.TINTA,
+                **{"font-size": "13.5", "font-weight": "650" if relevante else "400", "font-family": "'Public Sans', sans-serif"}),
             Tag("rect", x=str(x_ini), y=str(y + 4), width=str(ancho), height="14", rx="2", fill="#e6efe9"),
             Tag("rect", x=str(x_ini), y=str(y + 4), width=f"{w:.1f}", height="14", rx="2", fill=fill, class_="svg-barra-eta"),
-            Tag("text", _num(val, 4), x=f"{x_ini + w + 8:.1f}", y=str(y + 15), fill="#132f38",
-                **{"font-size": "12", "font-weight": "700" if relevante else "500",
-                   "font-family": "Figtree, sans-serif", "font-variant-numeric": "tabular-nums"}),
+            Tag("text", _num(val, 4), x=f"{x_ini + w + 8:.1f}", y=str(y + 15), fill=graficos.TINTA,
+                **{"font-size": "13.5", "font-weight": "700" if relevante else "500",
+                   "font-family": "'Public Sans', sans-serif", "font-variant-numeric": "tabular-nums"}),
         ])
 
     return ui.tags.figure(
@@ -245,7 +244,6 @@ def _cuerpo(c: dict):
     v = valores(c)
     return ui.div(
         ui.tags.section(
-            ui.h4(TEXTOS["concl_titulo"]),
             rejilla_subcards(TEXTOS["concl"], v),
             formula_latex(TEXTOS["formula_geom"], v),
             class_="panel-destacado",

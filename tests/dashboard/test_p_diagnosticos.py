@@ -33,9 +33,9 @@ def _textos(x):
 
 def test_muestra_20000(d):
     grande = pd.DataFrame({"ajuste_ln": range(50000), "residuo": range(50000)})
-    assert len(pd_.muestra(grande)) == 20000 and len(pd_.muestra(d.base)) == 3000
+    assert len(pd_.muestra(grande)) == pd_.MAX_PUNTOS and len(pd_.muestra(d.base)) == min(len(d.base), pd_.MAX_PUNTOS)
     for fig in (pd_.fig_residuos(grande), pd_.fig_qq(grande)):
-        assert max(len(t.x) for t in fig.data) <= 20000
+        assert len(fig.layout.images) == 1 and max(len(t.x) for t in fig.data) <= 20
 
 
 def test_figuras(d):

@@ -195,15 +195,15 @@
         if (!pane) return;
         pane.removeAttribute('data-preloading');
         pane.removeAttribute('aria-hidden');
+        // Solo los gráficos de esta pestaña cuyo ancho cambió: un resize global (o de todos) relayoutea
+        // cada gráfico de cada pestaña y alarga el cuadro del cambio.
         requestAnimationFrame(() => {
-          window.dispatchEvent(new Event('resize'));
-          if (window.Plotly) {
-            pane.querySelectorAll('.js-plotly-plot').forEach((plot) => {
-              try {
-                window.Plotly.Plots.resize(plot);
-              } catch (_) {}
-            });
-          }
+          if (!window.Plotly) return;
+          pane.querySelectorAll('.js-plotly-plot').forEach((plot) => {
+            const l = plot._fullLayout;
+            if (!l || (Math.abs(l.width - plot.clientWidth) < 2 && Math.abs(l.height - plot.clientHeight) < 2)) return;
+            try { window.Plotly.Plots.resize(plot); } catch (_) {}
+          });
         });
       });
 
@@ -218,25 +218,29 @@
     });
   }
 
-  /* 3. View Transitions API entre pestanas en escritorio (respeta prefers-reduced-motion y menu movil) */
+  /* 3. View Transitions entre pestanas en escritorio (respeta prefers-reduced-motion y menu movil).
+     Se engancha a show.bs.tab, que es cancelable: cancela el cambio original y lo repite dentro de
+     startViewTransition. Interceptar el click no sirve porque Shiny activa la pestana antes. */
   function initViewTransitions() {
     if (!('startViewTransition' in document)) return;
-    document.addEventListener('click', (ev) => {
-      if (REDUCED_MOTION()) return;
-      const link = ev.target.closest('.navbar-nav .nav-link[data-bs-toggle="tab"]');
-      if (!link || link.classList.contains('active')) return;
+    let enTransicion = false;
+    document.addEventListener('show.bs.tab', (ev) => {
+      if (enTransicion || REDUCED_MOTION()) return;
+      const link = ev.target;
+      if (!link.closest('.navbar-nav')) return;
       const toggler = document.querySelector('.navbar-toggler');
       // En menu movil conserva flujo exacto de foco y colapso Bootstrap
       if (toggler && toggler.getClientRects().length > 0) return;
-
-      const bsTab = window.bootstrap && window.bootstrap.Tab ? window.bootstrap.Tab.getOrCreateInstance(link) : null;
-      if (!bsTab) return;
+      const Tab = window.bootstrap && window.bootstrap.Tab;
+      if (!Tab) return;
       ev.preventDefault();
-      ev.stopImmediatePropagation();
+      // Solo viaja la píldora activa del rail; el contenido entra con su propia animación CSS
+      // (capturar toda la pestaña como imagen trababa el cambio).
       document.startViewTransition(() => {
-        bsTab.show();
+        enTransicion = true;
+        try { Tab.getOrCreateInstance(link).show(); } finally { enTransicion = false; }
       });
-    }, true);
+    });
   }
 
   initScopedMathJax();

@@ -1,6 +1,8 @@
 """Pestaña Exploración: descripción y depuración de los días de estada, con filtros."""
 from __future__ import annotations
 
+import math
+
 import numpy as np
 import pandas as pd
 from shiny import module, reactive, render, ui
@@ -296,7 +298,7 @@ def _caja(i):
     return ui.card(
         ui.card_header(ui.output_text(f"caja{i}_t")),
         ui.tags.div(ui.output_text(f"caja{i}_v"), class_="fs-3 fw-bold", style="color:var(--acento)"),
-        ui.tags.small(ui.output_text(f"caja{i}_r"), style="color:#6b7c82"),
+        ui.tags.small(ui.output_text(f"caja{i}_r"), style="color:var(--gris)"),
     )
 
 
@@ -386,7 +388,8 @@ def pestana_ui():
                     pila=True,
                 ),
             ),
-            col_widths=4,
+            # Projector: two histograms side by side, the concentration curve full width below.
+            col_widths=(6, 6, 12),
         ),
         ui.h5(TEXTOS["dep_titulo"]),
         componente.componente(
@@ -446,21 +449,28 @@ def pestana_server(input, output, session, d):
         c_pre = base_cache()
         return tabla_desc_html(c_pre["tabla"] if c_pre is not None else tabla_desc(filtrado(), d.cifras))
 
-    def hist_df(df_h, titulo):
-        f = graficos.barras(df_h, "x", "n") if len(df_h) else graficos.barras(pd.DataFrame({"x": [], "n": []}), "x", "n")
+    def hist_df(df_h, titulo, corte):
+        """Barras en acento hasta el corte de estadía prolongada y en rojo de carga desde él."""
+        if not len(df_h):
+            return graficos.tema(graficos.barras(pd.DataFrame({"x": [], "n": []}), "x", "n"), titulo)
+        f = graficos.barras(df_h, "x", "n", colores=[graficos.CARGA[3] if x >= corte else graficos.ACENTO
+                                                      for x in df_h["x"]])
+        f.add_vline(x=corte, line=dict(color=graficos.REFERENCIA, dash="dash"),
+                    annotation_text=f"prolongada: más de {resumen.UMBRAL_PROLONGADA} días",
+                    annotation_position="top right", annotation_xshift=6)
         return graficos.tema(f, titulo)
 
     @graficos.render_plotly
     def h_dias():
         c_pre = base_cache()
         h = c_pre["h_dias"] if c_pre is not None else resumen.histograma(filtrado(), "dias_estada", 60).rename(columns={"inicio": "x"})
-        return hist_df(h, TEXTOS["h_dias"])
+        return hist_df(h, TEXTOS["h_dias"], resumen.UMBRAL_PROLONGADA)
 
     @graficos.render_plotly
     def h_ln():
         c_pre = base_cache()
         h = c_pre["h_ln"] if c_pre is not None else resumen.histograma(filtrado(), "log_dias", None).rename(columns={"inicio": "x"})
-        return hist_df(h, TEXTOS["h_ln"])
+        return hist_df(h, TEXTOS["h_ln"], math.log(resumen.UMBRAL_PROLONGADA))
 
     @graficos.render_plotly
     def h_conc():

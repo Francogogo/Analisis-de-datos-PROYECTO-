@@ -30,6 +30,16 @@ TEXTOS = {
         "tiene gráfico, porque la base no identifica pacientes ni hospitales. Los reingresos del mismo paciente y los "
         "egresos de un mismo hospital la cuestionan, y en ese caso los valores-$p$ quedan optimistas."
     ),
+    "supuestos_titulo": "Estado de los supuestos de M3",
+    "supuestos": [
+        ("cumple", "Linealidad", "La media de los residuos queda cerca de 0 en todo el rango de valores ajustados."),
+        ("no", "Varianza constante", "La dispersión sube de $Q_1$ a $Q_4$. Los errores HC3 corrigen la inferencia."),
+        ("no", "Normalidad de los residuos", "El Q-Q se aparta en las colas. Con [[n]] egresos, el TLC sostiene las pruebas."),
+        ("alerta", "Ajuste por edad", "Sigue la subida desde los 20 años, pero se aparta en los extremos."),
+        ("cumple", "Ajuste por decil", "Las curvas avanzan juntas, sin un sesgo en un solo sentido."),
+        ("cumple", "Multicolinealidad", "VIF máximo de [[vif]], bajo 5."),
+        ("alerta", "Independencia", "No se puede revisar: la base no identifica pacientes ni hospitales."),
+    ],
     "resid_titulo": "Residuos frente a valores ajustados",
     "resid_texto": (
         "Revisa dos supuestos a la vez: que el modelo no se desvíe de forma sistemática en ningún tramo de valores "
@@ -359,7 +369,7 @@ def llenar(texto: str, valores: dict) -> str:
 
 
 def muestra(base: pd.DataFrame) -> pd.DataFrame:
-    """Hasta 20.000 egresos (random_state=1) para los gráficos de puntos."""
+    """Hasta MAX_PUNTOS egresos (random_state=1) para los gráficos de puntos."""
     return base.sample(min(len(base), MAX_PUNTOS), random_state=1)
 
 
@@ -411,10 +421,8 @@ def ventiles(base: pd.DataFrame) -> pd.DataFrame:
 def fig_residuos(base: pd.DataFrame, m_pre: pd.DataFrame | None = None, v_pre: pd.DataFrame | None = None) -> go.Figure:
     e = TEXTOS["ejes"]
     fig = graficos.dispersion(m_pre if m_pre is not None else muestra(base), "ajuste_ln", "residuo")
-    fig.data[0].name = "egresos"
-    fig.data[0].hovertemplate = "ajustado %{x:.2f}, residuo %{y:.2f}<extra></extra>"
     v = v_pre if v_pre is not None else ventiles(base)
-    fig.add_trace(go.Scatter(x=v["ajuste_ln"], y=v["residuo"], mode="lines+markers", name="media por ventil",
+    fig.add_trace(go.Scatter(x=v["ajuste_ln"], y=v["residuo"], mode="lines+markers", name="media por ventil", showlegend=True,
                              line=dict(color=graficos.REFERENCIA), hovertemplate="media %{y:.3f}<extra></extra>"))
     fig.add_hline(y=0, line=dict(color=graficos.GRIS, dash="dash"))
     fig.update_xaxes(title_text=e["ajuste"])
@@ -434,8 +442,7 @@ def fig_histograma(base: pd.DataFrame, h_pre: pd.DataFrame | None = None) -> go.
 def fig_qq(base: pd.DataFrame, m_pre: pd.DataFrame | None = None) -> go.Figure:
     r = np.sort((m_pre if m_pre is not None else muestra(base))["residuo"].to_numpy(dtype=float))
     teo = datos.cuantiles_normales(len(r))
-    fig = graficos.dispersion(pd.DataFrame({"teo": teo, "obs": r}), "teo", "obs")
-    fig.data[0].hovertemplate = "teórico %{x:.2f}, observado %{y:.2f}<extra></extra>"
+    fig = graficos.dispersion(pd.DataFrame({"teo": teo, "obs": r}), "teo", "obs", ancho=1000, alto=480)
     q1, q3 = np.quantile(r, [0.25, 0.75])
     z25, z75 = float(ndtri(0.25)), float(ndtri(0.75))
     b = (q3 - q1) / (z75 - z25)
@@ -532,15 +539,17 @@ def _guia(clave: str, v: dict, pila: bool = True):
     )
 
 
-def _bloque(titulo, clave, *cuerpo):
-    """Sección con el componente: `cuerpo` visible, `t_<clave>` como lectura breve, `d_<clave>` en el modal."""
+def _bloque(titulo, clave, *cuerpo, junto=None):
+    """Sección con el componente: `cuerpo` visible, `t_<clave>` como lectura breve, `d_<clave>` en el modal.
+    `junto` (la tabla del mismo gráfico) queda al lado en pantallas anchas."""
+    comp = componente.componente(
+        titulo, *cuerpo,
+        resumen=ui.output_ui(f"t_{clave}"),
+        detalle=ui.output_ui(f"d_{clave}"),
+    )
     return ui.tags.section(
         ui.h4(titulo),
-        componente.componente(
-            titulo, *cuerpo,
-            resumen=ui.output_ui(f"t_{clave}"),
-            detalle=ui.output_ui(f"d_{clave}"),
-        ),
+        ui.div(comp, junto, class_="par-lado") if junto is not None else comp,
         class_="seccion-editorial",
     )
 
@@ -560,18 +569,15 @@ def pestana_ui():
     return ui.div(
         ui.tags.section(ui.h3(T["titulo"]), ui.output_ui("intro"), class_="seccion-editorial"),
         _bloque(T["resid_titulo"], "resid", graficos.salida("g_resid")),
-        _bloque(T["hist_titulo"], "hist", graficos.salida("g_hist")),
-        _bloque(T["qq_titulo"], "qq", graficos.salida("g_qq")),
-        _bloque(T["edad_titulo"], "edad", graficos.salida("g_edad")),
-        ui.tags.section(
-            _tabla(T["edad_tabla_titulo"], "edad_tabla_resumen", "tabla_edad", T["edad_tabla_titulo"]),
-            class_="seccion-editorial",
+        ui.div(
+            _bloque(T["hist_titulo"], "hist", graficos.salida("g_hist")),
+            _bloque(T["qq_titulo"], "qq", graficos.salida("g_qq")),
+            class_="par-lado",
         ),
-        _bloque(T["decil_titulo"], "decil", graficos.salida("g_decil")),
-        ui.tags.section(
-            _tabla(T["decil_tabla_titulo"], "decil_tabla_resumen", "tabla_decil", T["decil_tabla_titulo"]),
-            class_="seccion-editorial",
-        ),
+        _bloque(T["edad_titulo"], "edad", graficos.salida("g_edad"),
+                junto=_tabla(T["edad_tabla_titulo"], "edad_tabla_resumen", "tabla_edad", T["edad_tabla_titulo"])),
+        _bloque(T["decil_titulo"], "decil", graficos.salida("g_decil"),
+                junto=_tabla(T["decil_tabla_titulo"], "decil_tabla_resumen", "tabla_decil", T["decil_tabla_titulo"])),
         _bloque(T["sd_titulo"], "sd", graficos.salida("g_sd")),
         ui.tags.section(
             ui.h4(T["vif_titulo"]),
@@ -591,6 +597,12 @@ def pestana_server(input, output, session, d):
             ui.p(llenar(TEXTOS["intro_supuestos"], v)),
             _formula("intro_formula", v),
             ui.p(llenar(TEXTOS["intro_nota"], v)),
+            ui.tags.figure(
+                ui.tags.figcaption(TEXTOS["supuestos_titulo"], class_="guia-lectura-titulo"),
+                ui.div(*[graficos.semaforo(e, t, llenar(n, v)) for e, t, n in TEXTOS["supuestos"]],
+                       class_="semaforo-rejilla"),
+                class_="guia-lectura guia-lectura--simple",
+            ),
         )
 
     def registrar(id_, fn):

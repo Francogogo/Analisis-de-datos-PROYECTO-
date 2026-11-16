@@ -195,7 +195,7 @@ def fig_edad(perfil: dict, m3: dict) -> go.Figure:
     fig.update_traces(hovertemplate="%{x} años: %{y:.2f} días<extra></extra>", selector=dict(name="dias"))
     dias = modelo.dias_estimados(perfil, m3)[0]
     fig.add_trace(go.Scatter(x=[perfil["edad"]], y=[dias], mode="markers", name="edad elegida",
-                             marker=dict(color=graficos.REFERENCIA, size=11),
+                             marker=dict(color=graficos.TINTA, size=12, line=dict(color="#ffffff", width=2)),
                              hovertemplate="%{x} años: %{y:.2f} días<extra></extra>"))
     fig.update_xaxes(title="Edad (años)")
     fig.update_yaxes(title="Días estimados")
@@ -206,9 +206,17 @@ def fig_edad(perfil: dict, m3: dict) -> go.Figure:
 def fig_niveles(perfil: dict, variable: str, m3: dict) -> go.Figure:
     df = modelo.curva(perfil, variable, m3)
     df["valor"] = df["valor"].astype(str)
+    if variable == "region":  # de norte a sur, como en Relaciones
+        orden = [r for r, _ in graficos.REGIONES]
+        df = df.sort_values("valor", key=lambda c: c.map(lambda r: orden.index(r) if r in orden else 99))
     if variable == "establecimiento":
         df["valor"] = df["valor"].map(lambda valor: etiquetas.etiqueta(variable, valor))
-    fig = graficos.intervalos(df, "valor", "dias", "inf", "sup")
+    # Frente al perfil elegido: rojo = más días, turquesa = menos, negro = el nivel actual del perfil.
+    actual = modelo.dias_estimados(perfil, m3)[0]
+    colores = [graficos.TINTA if abs(x - actual) < 1e-9 else graficos.MAS if x > actual else graficos.MENOS
+               for x in df["dias"]]
+    fig = graficos.intervalos(df, "valor", "dias", "inf", "sup", colores=colores)
+    fig.add_vline(x=actual, line=dict(color=graficos.REFERENCIA, dash="dash"))
     if variable == "capitulo":
         fig.update_traces(customdata=[etiquetas.etiqueta(variable, v) for v in df["valor"]],
                           hovertemplate="%{customdata}: %{x:.2f} días<extra></extra>")

@@ -219,23 +219,45 @@ def muestra_normalidad(base: pd.DataFrame, col: str) -> pd.Series:
 def fig_normalidad(base: pd.DataFrame, col: str) -> go.Figure:
     """Histograma de la variable y Q-Q de días, ln(días) y edad (muestra de 5.000, la de Shapiro-Wilk)."""
     qq = [("dias_estada", "Q-Q días"), ("log_dias", "Q-Q ln(días)"), ("edad", "Q-Q edad")]
-    fig = make_subplots(rows=1, cols=4, subplot_titles=("Histograma de " + ETIQ[col].lower(),) + tuple(t for _, t in qq))
+    fig = make_subplots(rows=2, cols=2, vertical_spacing=0.16, horizontal_spacing=0.12,
+                        subplot_titles=("Histograma de " + ETIQ[col].lower(),) + tuple(t for _, t in qq))
     n, bordes = np.histogram(base[col].astype(float), bins=40)
     fig.add_trace(go.Bar(x=(bordes[:-1] + bordes[1:]) / 2, y=n, marker_color=graficos.ACENTO,
                          hovertemplate="%{x:.1f}: %{y} egresos<extra></extra>", showlegend=False), 1, 1)
+    celda = {2: (1, 2), 3: (2, 1), 4: (2, 2)}
     for j, (c, _) in enumerate(qq, start=2):
         x = muestra_normalidad(base, c).sort_values().to_numpy()
         teo = datos.cuantiles_normales(len(x))
-        fig.add_trace(go.Scatter(x=teo, y=x, mode="markers", marker=dict(color=graficos.ACENTO, size=3),
-                                 hovertemplate="teórico %{x:.2f}, observado %{y:.2f}<extra></extra>",
-                                 showlegend=False), 1, j)
+        f, k = celda[j]
+        graficos.puntos(fig, teo, x, row=f, col=k, ancho=480, alto=400, radio=3)
         a, b = np.polyfit(teo, x, 1)
         fig.add_trace(go.Scatter(x=[teo[0], teo[-1]], y=[a * teo[0] + b, a * teo[-1] + b], mode="lines",
-                                 line=dict(color=graficos.REFERENCIA, dash="dash"), hoverinfo="skip", showlegend=False), 1, j)
-        fig.update_xaxes(title_text="Cuantiles teóricos", row=1, col=j)
+                                 line=dict(color=graficos.REFERENCIA, dash="dash"), hoverinfo="skip", showlegend=False), f, k)
+        fig.update_xaxes(title_text="Cuantiles teóricos", row=f, col=k)
     fig.update_xaxes(title_text=ETIQ[col], row=1, col=1)
     fig.update_yaxes(title_text="Cuantiles observados", row=1, col=2)
-    return graficos.tema(fig)
+    fig.update_yaxes(title_text="Cuantiles observados", row=2, col=1)
+    return graficos.tema(fig).update_layout(height=860)
+
+
+def _orden_regiones(grupos) -> list:
+    """Regiones de norte a sur; las que no estén en el listado quedan al final."""
+    orden = [r for r, _ in graficos.REGIONES]
+    return sorted(grupos, key=lambda g: orden.index(g) if g in orden else len(orden))
+
+
+def colores_grupos(d, variable: str, grupos) -> tuple[list, dict, str]:
+    """Clase de color de cada grupo según el código clínico, sus colores y el título de la leyenda."""
+    if variable == "capitulo":
+        pct = d.cifras["pct_prolongadas_por_grupo"]["capitulo"]
+        nombres = graficos.TRAMOS_CARGA
+        clases = [nombres[graficos.tramo_carga(pct[g])] if g in pct else nombres[0] for g in grupos]
+        return clases, dict(zip(nombres, graficos.CARGA)), f"% > {resumen.UMBRAL_PROLONGADA} días"
+    if variable == "region":
+        return [graficos.MACROZONA.get(g, "Centro") for g in grupos], graficos.ZONAS, "Macrozona"
+    if variable == "fallecido":
+        return list(grupos), {"No": graficos.NEUTRO, "Sí": graficos.FALLECIDO}, "Fallecido"
+    return None, None, ""
 
 
 def fig_prueba(d, variable: str, respuesta: str) -> go.Figure:
@@ -243,9 +265,14 @@ def fig_prueba(d, variable: str, respuesta: str) -> go.Figure:
         return fig_normalidad(d.base, variable)
     if respuesta == "prolongada":
         pct = d.cifras["pct_prolongadas_por_grupo"][variable]
-        df = pd.DataFrame({"grupo": list(pct), "pct": list(pct.values())})
-        fig = graficos.barras(df, "grupo", "pct")
-        fig.update_traces(marker_color=graficos.ALERTA)
+        grupos = _orden_regiones(pct) if variable == "region" else list(pct)
+        df = pd.DataFrame({"grupo": grupos, "pct": [pct[g] for g in grupos]})
+        # El largo de la barra da el %, y el color repite el tramo de carga para leerlo igual en todas las pestañas.
+        fig = graficos.barras(df, "grupo", "pct", colores=[graficos.CARGA[graficos.tramo_carga(v)] for v in df["pct"]])
+        total = d.cifras["pct_prolongadas"]
+        fig.add_hline(y=total, line=dict(color=graficos.REFERENCIA, dash="dash"),
+                      annotation_text=f"Total: {graficos.num(total, 1)} %", annotation_position="top left")
+        fig.update_xaxes(categoryorder="array", categoryarray=grupos)
         fig.update_yaxes(title_text=TEXTOS["prolongadas"])
         return fig
     por = "tramo_edad" if variable == "edad" else variable
@@ -257,7 +284,10 @@ def fig_prueba(d, variable: str, respuesta: str) -> go.Figure:
         if por == "tramo_edad":
             orden = d.base.groupby("tramo_edad", observed=True)["edad"].mean().sort_values().index.tolist()
             cj = cj.set_index("grupo").loc[orden].reset_index()
-    fig = graficos.cajas(cj)
+    if por == "region":
+        cj = cj.set_index("grupo").loc[_orden_regiones(cj["grupo"])].reset_index()
+    clases, colores, leyenda = colores_grupos(d, por, cj["grupo"])
+    fig = graficos.cajas(cj, clases, colores, leyenda)
     fig.update_yaxes(title_text="ln(días)")
     return fig
 
