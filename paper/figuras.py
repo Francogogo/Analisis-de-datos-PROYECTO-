@@ -1,8 +1,8 @@
 """Figuras del informe.
 
-avance2_v7.ipynb llama a estas funciones con los datos que calcula, y además guarda en
+avance2_v8.ipynb llama a estas funciones con los datos que calcula, y además guarda en
 results/base_figuras.parquet las columnas que usan los gráficos. Con esa base y
-results/cifras_avance2_v7.json, las figuras se regeneran en segundos sin estimar ningún modelo:
+results/cifras_avance2_v8.json, las figuras se regeneran en segundos sin estimar ningún modelo:
 
     python3 paper/figuras.py        (desde la raíz del repositorio)
 
@@ -354,4 +354,4 @@ if __name__ == "__main__":
     matplotlib.use("Agg")
     estilo()
     base = pd.read_parquet(RAIZ / "results/base_figuras.parquet")
-    todas(base, json.loads((RAIZ / "results/cifras_avance2_v7.json").read_text()))
+    todas(base, json.loads((RAIZ / "results/cifras_avance2_v8.json").read_text()))

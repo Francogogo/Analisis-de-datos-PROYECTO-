@@ -1,4 +1,4 @@
-"""Genera las tablas largas de los anexos del informe a partir de results/cifras_avance2_v7.json.
+"""Genera las tablas largas de los anexos del informe a partir de results/cifras_avance2_v8.json.
 
 Uso, desde la raíz del repositorio: python3 paper/gen_anexos.py
 Escribe fragmentos LaTeX en paper/anexos/ que informe.tex incluye con \\input.
@@ -9,7 +9,7 @@ import math
 from pathlib import Path
 
 RAIZ = Path(__file__).resolve().parent.parent
-d = json.loads((RAIZ / "results/cifras_avance2_v7.json").read_text(), parse_constant=lambda c: float(c))
+d = json.loads((RAIZ / "results/cifras_avance2_v8.json").read_text(), parse_constant=lambda c: float(c))
 SALIDA = RAIZ / "paper/anexos"
 SALIDA.mkdir(exist_ok=True)
 
@@ -164,14 +164,6 @@ for k, c in d["coef"].items():
         pc, ic = "---", "---"
     filas.append(f"{rotulo(k)} & {b} & {ee} & {hc} & {num(c['t'], 1)} & {pval(c['valor-p HC3'])} & {pc} & {ic} \\\\")
 (SALIDA / "coef_m3.tex").write_text("\n".join(filas) + "\n")
-
-# ---------- Anexo C: razones de odds completas de L3
-filas = []
-for k, o in d["logit_or"].items():
-    if k == "Intercept":
-        continue
-    filas.append(f"{rotulo(k)} & {num(o['OR'], 2)} & {num(o['IC inf'], 2)} a {num(o['IC sup'], 2)} & {pval(o['valor-p'])} \\\\")
-(SALIDA / "or_l3.tex").write_text("\n".join(filas) + "\n")
 
 # ---------- Anexo D: recorrido forward por BIC
 filas = []

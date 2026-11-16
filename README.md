@@ -1,8 +1,8 @@
 # Estadías hospitalarias en FONASA, 2020
 
-Proyecto de Análisis de Datos (IIP316W-1). Estudiamos qué factores clínicos, demográficos y del sistema de salud se asocian con la duración de la estadía y con las hospitalizaciones prolongadas (más de 15 días) en beneficiarios FONASA durante 2020.
+Proyecto de Análisis de Datos (IIP316W-1). Estudiamos qué factores clínicos, demográficos y del sistema de salud se asocian con la duración de la estadía en beneficiarios FONASA durante 2020.
 
-El enfoque es analítico y estadístico: estimamos asociaciones ajustadas, intervalos, razones de odds y tamaños de efecto con la base completa. No hay partición entrenamiento/prueba ni objetivo predictivo, y las medidas de ajuste describen únicamente los datos analizados.
+El enfoque es analítico y estadístico: estimamos asociaciones ajustadas, intervalos y tamaños de efecto con la base completa. No hay partición entrenamiento/prueba ni objetivo predictivo, y las medidas de ajuste describen únicamente los datos analizados.
 
 ## Datos
 
@@ -20,11 +20,27 @@ Para ejecutarlo sin abrir la interfaz: `.venv/bin/jupyter nbconvert --to noteboo
 
 Hay que abrirlo desde la raíz del repo. El notebook lee directo del zip en `data/raw/`, no hace falta descomprimir. Tarda unos 7 minutos en ejecutarse completo.
 
+## Dashboard del examen
+
+El dashboard interactivo está en `dashboard/` (Shiny para Python). Lleva a formato interactivo lo que está en el informe y agrega la simulación what if sobre el modelo M3.
+
+```bash
+.venv/bin/pip install -r dashboard/requirements.txt
+.venv/bin/shiny run dashboard/app.py
+```
+
+`dashboard/README.md` explica cómo regenerar los datos, verificar y publicar. `dashboard/COBERTURA.md` empareja cada figura y tabla del informe con su lugar en el dashboard, y `dashboard/guion.md` tiene el guion de la exposición.
+
 ## Archivos principales
+
+- `avance2_v8.ipynb`: notebook vigente, el que se entregó en el Certamen 2. Calza con `paper/informe_v5.tex` (solo regresión lineal) y escribe `results/cifras_avance2_v8.json`, que leen `paper/gen_anexos.py`, `paper/figuras.py` y el dashboard.
+- `paper/informe_v5.tex` y `paper/informe_v5.pdf`: informe entregado en el Certamen 2. Es el v4 sin la sección de reproducibilidad. Las entradas de más abajo describen versiones anteriores.
+- `entrega_c2/`: copia de lo que se subió a Canvas en el Certamen 2.
 
 - `avance2_v7.ipynb`: entregable vigente del **Avance 2** y notebook del paper. Reproduce las cifras, tablas y figuras del paper, incluidas las 20 pruebas de a pares del Avance 1 y los errores HC3. Incluye la exploración en 5 etapas, los modelos lineales anidados ($M_0 \to M_3$) con $\eta^2$ parcial, los coeficientes y su lectura como cambio porcentual en la media geométrica, la revisión de supuestos, la sensibilidad a la especificación, la regresión logística de la estadía prolongada, la selección forward de factores y la discusión con la literatura. Guarda las figuras en `paper/figs/` y las cifras en `results/cifras_avance2_v7.json`, y termina con una verificación contra el paper.
 - `paper/informe.tex` y `paper/informe.pdf`: primera versión del informe final, con portada, resumen, índice, cuerpo de 12 páginas, referencias APA y anexos A a F (las 20 pruebas de a pares con sus hipótesis, coeficientes y OR completos, supuestos, sensibilidad y reproducibilidad). Incluye la tabla de hipótesis de cada prueba y el ranking de variables por tamaño de efecto. Las tablas de los anexos las genera `paper/gen_anexos.py` desde `results/cifras_avance2_v7.json`. Se compila desde `paper/` con `python3 gen_anexos.py` y tres pasadas de `xelatex informe.tex`.
-- `paper/informe_v3.tex` y `paper/informe_v3.pdf`: **versión definitiva del informe**. Parte del v2 y corrige lo que encontró una revisión con la rúbrica: la discusión entre pares y modelo conjunto ahora compara OR crudos y ajustados, la regla de decisión de las hipótesis por grupo, Anderson–Darling informado como p ≤ 0,01, la justificación de la inferencia con la base completa, las fuentes de las tablas de diseño, citas de los métodos (Holm, Long y Ervin, Shapiro y Wilk, Lilliefors) y la maquetación de los anexos, todo en páginas verticales. Se compila desde `paper/` con `python3 gen_anexos.py` y tres pasadas de `xelatex informe_v3.tex`.
+- `paper/informe_v4.tex` y `paper/informe_v4.pdf`: **versión definitiva del informe**, solo con la regresión lineal. Respecto de v3 quita la regresión logística de la estadía prolongada: la pregunta y las hipótesis hablan solo de la duración, el ranking usa el $\eta^2$ parcial de M3 y el orden forward por BIC, y la discusión compara los efectos de a pares con los de M3. El corte de 15 días queda como descripción (9,4 \% de los egresos y 47,1 \% de los días-cama) y en las pruebas chi-cuadrado de a pares. El notebook sigue calculando la logística, aunque el informe no la reporta. Se compila desde `paper/` con `python3 gen_anexos.py` y tres pasadas de `xelatex informe_v4.tex`.
+- `paper/informe_v3.tex` y `paper/informe_v3.pdf`: versión anterior, con regresión logística. Parte del v2 y corrige lo que encontró una revisión con la rúbrica: la discusión entre pares y modelo conjunto ahora compara OR crudos y ajustados, la regla de decisión de las hipótesis por grupo, Anderson–Darling informado como p ≤ 0,01, la justificación de la inferencia con la base completa, las fuentes de las tablas de diseño, citas de los métodos (Holm, Long y Ervin, Shapiro y Wilk, Lilliefors) y la maquetación de los anexos, todo en páginas verticales. Se compila desde `paper/` con `python3 gen_anexos.py` y tres pasadas de `xelatex informe_v3.tex`.
 - `paper/informe_v2.tex` y `paper/informe_v2.pdf`: versión anterior del informe. Respecto de `informe.tex` tiene las figuras en PDF vectorial, la Universidad del Desarrollo en la portada, la etapa de evaluación en el diagrama, literatura nueva (Gómez Peña et al., 2023; Barahona et al., 2021) en vez de Lequertier et al. (2021), métricas de evaluación, post hoc de Holm, sesgos e implicancias. El anexo A suma lo que pedía el Avance 1: V de Cramér, histograma y Q-Q, boxplots de todos los factores, barras apiladas y tablas de contingencia. Las figuras (`paper/figs/*.pdf`) salen del notebook; en el gráfico de residuos, los 20.000 puntos van como imagen dentro del PDF y los ejes y el texto quedan vectoriales. Se compila desde `paper/` con `python3 gen_anexos.py` y tres pasadas de `xelatex informe_v2.tex`.
 - `paper/figuras.py`: código de todas las figuras (PDF vectorial y, para las versiones anteriores, PNG). El notebook lo llama; antes de guardar cada figura revisa que ningún texto se toque con otro ni invada otro panel, y se detiene si pasa. El notebook guarda también `results/base_figuras.parquet` (no versionado), con lo que `python3 paper/figuras.py` regenera los gráficos en unos 10 segundos sin estimar modelos.
 - `paper/paper.tex` y `paper/paper.pdf`: versión anterior del paper, sin anexos, escrito sobre las cifras de `avance2_v7.ipynb`. `paper/figs/` tiene las figuras con tamaño de impresión. Se compila con `xelatex` (dos pasadas) desde `paper/`; usa TeX Gyre Pagella (texto y fórmulas) y Figtree (títulos).
