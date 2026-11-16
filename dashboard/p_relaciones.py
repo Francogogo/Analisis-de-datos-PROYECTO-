@@ -311,7 +311,7 @@ def filas_pruebas(cifras: dict) -> list[list[str]]:
 
 
 def tabla_pruebas(cifras: dict):
-    return _tabla(TEXTOS["pruebas_cols"], filas_pruebas(cifras), "table table-sm")
+    return _tabla(TEXTOS["pruebas_cols"], filas_pruebas(cifras), "table table-sm tabla-pruebas")
 
 
 def tabla_contingencia(cifras: dict, variable: str):

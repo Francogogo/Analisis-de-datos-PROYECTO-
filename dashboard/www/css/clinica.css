@@ -381,3 +381,14 @@ mjx-container[jax="SVG"][display="true"] { display: block; margin: .25rem 0; }
 /* Tablas largas (42 coeficientes): alto acotado con la cabecera fija, para no alejar el gráfico de lo que sigue. */
 .tabla-alta { max-height: min(34rem, 70vh); overflow-y: auto; margin-top: 1rem; }
 .tabla-alta thead th { position: sticky; top: 0; z-index: 1; }
+
+/* Tabla de las 20 pruebas: más compacta y la decisión en una sola línea. */
+.tabla-pruebas { font-size: 1rem; }
+.tabla-pruebas th, .tabla-pruebas td { padding: .6rem .6rem; }
+.tabla-pruebas td:last-child, .tabla-pruebas th { white-space: nowrap; }
+
+/* En el modal, un componente con tabla ancha usa todo el ancho y deja la explicación debajo. */
+@media (min-width: 1000px) {
+  .componente.en-modal:has(.table-responsive) { display: block; }
+  .componente.en-modal:has(.table-responsive) > .componente-detalle { margin-top: 1.5rem; padding: 1.25rem 0 0; border-left: 0; border-top: 1px solid var(--borde); }
+}

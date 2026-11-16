@@ -6,13 +6,14 @@ def componente(titulo: str, *cuerpo, resumen=None, detalle=None, abierto: bool =
     """Muestra `cuerpo` y una lectura breve (`resumen`). Si hay `detalle`, agrega un botón que abre
     el mismo componente en un modal grande, donde `detalle` (oculto en la vista normal) sí se ve.
     Con `abierto=True` (tablas y bloques sin gráfico) el detalle se ve en la página y no hay modal."""
+    # El botón va después de la lectura: se ve abajo a la derecha y así también le toca al final con Tab.
     return ui.div(
+        *cuerpo,
+        ui.div(resumen, class_="componente-resumen") if resumen is not None else None,
         ui.tags.button(
             "Detalles", type="button", class_="componente-abrir",
             aria_haspopup="dialog", aria_label=f"Detalles: {titulo}",
         ) if detalle is not None and not abierto else None,
-        *cuerpo,
-        ui.div(resumen, class_="componente-resumen") if resumen is not None else None,
         ui.div(detalle, class_="componente-detalle") if detalle is not None else None,
         class_="componente componente--abierto" if abierto else "componente",
         data_titulo=titulo,
