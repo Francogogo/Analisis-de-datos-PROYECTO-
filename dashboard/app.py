@@ -217,6 +217,26 @@ class CacheInmutable:
         await self.app(scope, receive, enviar)
 
 
+class MoreBodyExplicito:
+    """Pone `more_body` en cada http.response.body. ASGI lo deja opcional, pero el inyector de
+    shinyapps.io (shiny_support.injector_send) lo lee con event["more_body"] y cae con KeyError."""
+
+    def __init__(self, app):
+        self.app = app
+
+    async def __call__(self, scope, receive, send):
+        if scope["type"] != "http":
+            return await self.app(scope, receive, send)
+
+        async def enviar(msg):
+            if msg["type"] == "http.response.body":
+                msg.setdefault("more_body", False)
+            await send(msg)
+
+        await self.app(scope, receive, enviar)
+
+
 app = App(app_ui, server, static_assets=WWW)
 app.starlette_app.add_middleware(CacheInmutable)
 app.starlette_app.add_middleware(GZipMiddleware, minimum_size=1000, compresslevel=6)
+app.starlette_app.add_middleware(MoreBodyExplicito)  # el último agregado queda más afuera
